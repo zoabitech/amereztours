@@ -1,17 +1,20 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import CustomImput from '../../components/CustomInput/CustomInput';
+import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
-const SignUpScreen = () => {
-    const [Email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordRepeat, setPasswordRepeat] = useState('');
+import { useForm, Controller } from 'react-hook-form';
 
+const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+const SignUpScreen = () => {
+
+    const { control, handleSubmit, watch } = useForm();
+    const pwd = watch('Password');
     const navigation = useNavigation();
 
-    const onSignUpPressed = () => {
+    const onSignUpPressed = (data) => {
         navigation.navigate("Confirm");
     }
     const onAlreadyHaveAccountPressed = () => {
@@ -27,26 +30,40 @@ const SignUpScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.root}>
                 <Text style={styles.title}>Create an account</Text>
-                <CustomImput
+
+                <CustomInput
+                    name="E-mail"
                     placeholder="E-mail"
-                    value={Email}
-                    setValue={setEmail} />
-                <CustomImput
+                    control={control}
+                    rules={{ required: 'Email is required', pattern: { value: EMAIL_REGEX, message: 'Email is invalid' } }}
+                />
+                <CustomInput
+                    name="Password"
                     placeholder="Password"
-                    value={password}
-                    setValue={setPassword}
-                    secureTextEntry={true} />
-                <CustomImput
-                    placeholder="Repeat Password"
-                    value={passwordRepeat}
-                    setValue={setPasswordRepeat}
-                    secureTextEntry={true} />
+                    control={control}
+                    secureTextEntry={true}
+                    rules={{ required: 'Password is required', minLength: { value: 10, message: 'Password should be minimum 10 characters long' } }}
+                />
+
+                <CustomInput
+                    name="repeatPassword"
+                    placeholder="Repeat password"
+                    control={control}
+                    secureTextEntry={true}
+                    rules={{
+                        validate: value =>
+                            value === pwd || "Password do not match",
+                    }}
+                />
                 <CustomButton
                     text="Sign Up"
-                    onPress={onSignUpPressed} />
+                    onPress={handleSubmit(onSignUpPressed)} />
+
                 <Text style={styles.agrees}>By creating and account,you agree to amereztours
                     {'\n'} <Text style={styles.hyperlinkStyle} onPress={onTermsOfUsePreesed}>Terms of use</Text> and <Text style={styles.hyperlinkStyle} onPress={onPrivacyPolicyPreesed}>Privacy policy</Text></Text>
+
                 <SocialSignInButtons />
+
                 <CustomButton
                     text="Already have an account"
                     onPress={onAlreadyHaveAccountPressed}

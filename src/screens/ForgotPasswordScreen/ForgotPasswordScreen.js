@@ -3,8 +3,14 @@ import React, { useState } from 'react'
 import CustomImput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+
+const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 const ForgotPasswordScreen = () => {
-    const [Email, setEmail] = useState('');
+
+    const { control, handleSubmit, watch } = useForm();
+
     const Navigation = useNavigation();
 
     const onSendPressed = () => {
@@ -18,12 +24,14 @@ const ForgotPasswordScreen = () => {
             <View style={styles.root}>
                 <Text style={styles.title}>Reset your password</Text>
                 <CustomImput
+                    name="E-mail"
                     placeholder="E-mail"
-                    value={Email}
-                    setValue={setEmail} />
+                    control={control}
+                    rules={{ required: 'Email is required', pattern: { value: EMAIL_REGEX, message: 'Email is invalid' } }}
+                />
                 <CustomButton
                     text="Send"
-                    onPress={onSendPressed} />
+                    onPress={handleSubmit(onSendPressed)} />
                 <CustomButton
                     text="Back to sign in"
                     onPress={onBackToSignInPressed}

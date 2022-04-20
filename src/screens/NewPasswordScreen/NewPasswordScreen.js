@@ -1,16 +1,16 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import CustomImput from '../../components/CustomInput/CustomInput';
+import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
 const NewPasswordScreen = () => {
-    const [code, setCode] = useState('');
-    const [newPassword, setNewPassword] = useState('');
 
+    const { control, handleSubmit, watch } = useForm();
     const Navigation = useNavigation();
-
+    const pwd = watch('Password');
     const onSubmitPressed = () => {
-        console.warn('onConfirmPressed');
+        Navigation.navigate("home");
     }
     const onBackToSignInPressed = () => {
         Navigation.navigate("SignIn");
@@ -19,17 +19,34 @@ const NewPasswordScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.root}>
                 <Text style={styles.title}>Reset your password</Text>
-                <CustomImput
-                    placeholder="Code"
-                    value={code}
-                    setValue={setCode} />
-                <CustomImput
-                    placeholder="Enter your new password"
-                    value={newPassword}
-                    setValue={setNewPassword} />
+
+                <CustomInput
+                    name="code"
+                    control={control}
+                    placeholder="Enter your confirmation code"
+                    rules={{ required: 'Code is required', minLength: { value: 10, message: 'Code should be minimum 10 characters long' } }}
+                />
+                <CustomInput
+                    name="Password"
+                    placeholder="Password"
+                    control={control}
+                    secureTextEntry={true}
+                    rules={{ required: 'Password is required', minLength: { value: 10, message: 'Password should be minimum 10 characters long' } }}
+                />
+
+                <CustomInput
+                    name="repeatPassword"
+                    placeholder="Repeat password"
+                    control={control}
+                    secureTextEntry={true}
+                    rules={{
+                        validate: value =>
+                            value === pwd || "Password do not match",
+                    }}
+                />
                 <CustomButton
                     text="Submit"
-                    onPress={onSubmitPressed} />
+                    onPress={handleSubmit(onSubmitPressed)} />
                 <CustomButton
                     text="Back to sign in"
                     onPress={onBackToSignInPressed}

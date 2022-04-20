@@ -10,11 +10,6 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.root}>
-      {/* <SignInScreen /> */}
-      {/* <SignUpScreen /> */}
-      {/* <ConfirmEmailScreen /> */}
-      {/* <ForgotPasswordScreen /> */}
-      {/* <NewPasswordScreen /> */}
       <Navigation />
     </SafeAreaView >
   );

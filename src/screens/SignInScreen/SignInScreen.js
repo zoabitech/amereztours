@@ -1,22 +1,22 @@
 import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
 import React, { useState } from 'react';
 import Logo from '../../../assets/images/company_logo.png'
-import CustomImput from '../../components/CustomInput/CustomInput';
+import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import ModalInjection from 'react-native/Libraries/Modal/ModalInjection';
 import SocialSignInButtons from '../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+
+const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const SignInScreen = () => {
-    const [Email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const { height } = useWindowDimensions();
-
+    const { control, handleSubmit } = useForm();
     const navigation = useNavigation();
 
-    const onSignInPressed = () => {
+    const onSignInPressed = (data) => {
         //validate user
-        navigation.navigate('Home');
+        navigation.navigate('home');
     }
     const onForgotPasswordPressed = () => {
         navigation.navigate('ForgetPassword')
@@ -26,34 +26,53 @@ const SignInScreen = () => {
     }
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
+
             <View style={styles.root}>
+
                 <Image
                     source={Logo}
                     style={[styles.logo, { height: height * 0.3 }]}
-                    resizeMode="contain" />
+                    resizeMode="contain"
+                />
+
                 <Text style={styles.title}>Login in your account</Text>
-                <CustomImput
+
+                <CustomInput
+                    name="E-mail"
                     placeholder="E-mail"
-                    value={Email}
-                    setValue={setEmail} />
-                <CustomImput
+                    control={control}
+                    rules={{ required: 'Email is required', pattern: { value: EMAIL_REGEX, message: 'Email is invalid' } }}
+                />
+
+                <CustomInput
+                    name="Password"
                     placeholder="Password"
-                    value={password}
-                    setValue={setPassword}
-                    secureTextEntry={true} />
+                    control={control}
+                    secureTextEntry={true}
+                    rules={{ required: 'Password is required', minLength: { value: 10, message: 'Password should be minimum 10 characters long' } }}
+                />
+
                 <CustomButton
                     text="Sign In"
-                    onPress={onSignInPressed} />
+                    onPress={handleSubmit(onSignInPressed)}
+                />
+
                 <CustomButton
                     text="Forgot Password"
                     onPress={onForgotPasswordPressed}
-                    type="TERTIARY" />
+                    type="TERTIARY"
+                />
+
                 <SocialSignInButtons />
+
                 <CustomButton
                     text="Dont have anccount? create one"
                     onPress={onDontHaveAnccountPressed}
-                    type="TERTIARY" />
+                    type="TERTIARY"
+                />
+
             </View>
+
         </ScrollView>
     )
 }

@@ -4,15 +4,13 @@ import CustomImput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
 const ConfirmEmailScreen = () => {
-    const [Email, setEmail] = useState('');
-    const [code, setCode] = useState('');
-    const [passwordRepeat, setPasswordRepeat] = useState('');
-
+    const { control, handleSubmit, watch } = useForm();
     const Navigation = useNavigation();
 
     const onConfirmPressed = () => {
-        Navigation.navigate("Home");
+        Navigation.navigate("home");
     }
     const onBackToSignInPressed = () => {
         Navigation.navigate("SignIn");
@@ -23,19 +21,27 @@ const ConfirmEmailScreen = () => {
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.root}>
+
                 <Text style={styles.title}>Confirm your email</Text>
+
                 <CustomImput
+                    name="code"
+                    control={control}
                     placeholder="Enter your confirmation code"
-                    value={code}
-                    setValue={setCode} />
+                    rules={{ required: 'Code is required', minLength: { value: 10, message: 'Code should be minimum 10 characters long' } }}
+                />
+
                 <CustomButton
                     text="Confirm"
-                    onPress={onConfirmPressed} />
+                    onPress={handleSubmit(onConfirmPressed)}
+                />
+
                 <CustomButton
                     text="Back to sign in"
                     onPress={onBackToSignInPressed}
                     type="SECONDARY"
                 />
+
                 <CustomButton
                     text="Resend code"
                     onPress={onResendCodePressed}
