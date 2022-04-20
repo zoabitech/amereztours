@@ -5,15 +5,17 @@ import {
   Text,
   View,
 } from 'react-native';
-import SignInScreen from './src/screens/SignInScreen';
-import SignUpScreen from './src/screens/SignUpScreen/SignUpScreen';
-
+import Navigation from './src/navigation';
 const App = () => {
 
   return (
     <SafeAreaView style={styles.root}>
       {/* <SignInScreen /> */}
-      <SignUpScreen />
+      {/* <SignUpScreen /> */}
+      {/* <ConfirmEmailScreen /> */}
+      {/* <ForgotPasswordScreen /> */}
+      {/* <NewPasswordScreen /> */}
+      <Navigation />
     </SafeAreaView >
   );
 };
