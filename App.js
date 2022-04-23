@@ -5,12 +5,16 @@ import {
   Text,
   View,
 } from 'react-native';
+import CarPost from './src/components/CarPost/CarPost';
 import Navigation from './src/navigation';
+import TabNavigation from './src/navigation/HomeTabNavigation';
 const App = () => {
 
   return (
     <SafeAreaView style={styles.root}>
       <Navigation />
+      {/* <TabNavigation /> */}
+      {/* <CarPost/> */}
     </SafeAreaView >
   );
 };

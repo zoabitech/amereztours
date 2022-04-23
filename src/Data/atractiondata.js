@@ -1,0 +1,38 @@
+export const atractionData = [
+    {
+        id: 1,
+        title: "THE THREE VALLEYS OF THE HIGH ATLAS",
+        image: "https://images.unsplash.com/photo-1538600838042-6a0c694ffab5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        places: 6,
+        avgRating: 2.5,
+        suitcases: 6,
+        price: 100,
+    },
+    {
+        id: 2,
+        title: "AGADIR EXCURSION",
+        image: "https://images.unsplash.com/photo-1545167496-c1e092d383a2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=792&q=80",
+        places: 6,
+        avgRating: 4,
+        suitcases: 6,
+        price: 200,
+    },
+    {
+        id: 3,
+        title: "AGAFAY",
+        image: "https://images.unsplash.com/photo-1568241360857-e23e825c4e08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=778&q=80",
+        places: 6,
+        avgRating: 5,
+        suitcases: 6,
+        price: 150,
+    },
+    {
+        id: 4,
+        title: "ESSAOUIRA EXCURSION",
+        image: "https://images.unsplash.com/photo-1552573033-b7bb437bf953?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fG1vcm9jY298ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        places: 6,
+        avgRating: 5,
+        suitcases: 6,
+        price: 150,
+    },
+];
