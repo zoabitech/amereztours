@@ -1,7 +1,6 @@
 // import { View, Text, color, StyleSheet } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from '../screens/Home';
 import OrderScreen from '../screens/OrdersScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import LikedScreen from '../screens/LikedScreen'
@@ -9,8 +8,7 @@ import LikedScreen from '../screens/LikedScreen'
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import styles from '../components/CarPost/styles';
-import { back } from 'react-native/Libraries/Animated/Easing';
+import CarSearchScreen from '../screens/CarSerchScreen/CarSearchScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -26,7 +24,7 @@ const HomeTabNavigation = (props) => {
         >
             <Tab.Screen
                 name={"Search"}
-                component={Home}
+                component={CarSearchScreen}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Fontisto name="search" size={25} color={color} style={{ fontWeight: '200' }} />
