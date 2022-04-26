@@ -17,4 +17,8 @@ const CarSearchScreen = () => {
 
 export default CarSearchScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    root: {
+        margin: 1,
+    }
+})

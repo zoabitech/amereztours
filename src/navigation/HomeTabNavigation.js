@@ -8,8 +8,7 @@ import LikedScreen from '../screens/LikedScreen'
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import CarSearchScreen from '../screens/CarSerchScreen/CarSearchScreen';
-
+import TopTabNavigator from './TopTabNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,15 +18,16 @@ const HomeTabNavigation = (props) => {
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: '#005B99',
-                tabBarInactiveTintColor: 'gray'
+                tabBarInactiveTintColor: 'gray',
+                tabBarStyle: { borderTopWidth: 0.5, borderTopColor: 'gray' }
             }}
         >
             <Tab.Screen
                 name={"Search"}
-                component={CarSearchScreen}
+                component={TopTabNavigator}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Fontisto name="search" size={25} color={color} style={{ fontWeight: '200' }} />
+                        <Fontisto name="search" size={25} color={color} fontWeight={'100'} />
                     )
                 }}
             />
@@ -36,7 +36,7 @@ const HomeTabNavigation = (props) => {
                 name={"Liked"}
                 component={LikedScreen}
                 options={{
-                    tabBarIcon: ({ color }) => (
+                    tabBarIcon: ({ colord }) => (
                         <FontAwesome name="heart-o" size={25} color={color} />
                     )
                 }}

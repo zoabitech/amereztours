@@ -7,20 +7,8 @@ import { atractionData } from '../../Data/atractiondata';
 import OrderPost from '../../components/OrderPost/OrderPost'
 const Home = () => {
     return (
-        // <FlatList
-        // data={atractionData}
-        //     style={styles.root}
-        //     renderItem={({ item }) => <AtractionPost item={item} />
-        //     }
-        // />
         <View style={styles.root}>
-
-            <FlatList
-                data={carData}
-                renderItem={({ item }) => <OrderPost item={item} />
-                }
-            />
-
+            <Text>hello</Text>
         </View>
     )
 }
@@ -31,10 +19,3 @@ const styles = StyleSheet.create({
     }
 })
 export default Home;
-
-
-{/* <FlatList
-                data={carData}
-                renderItem={({ item }) => <CarPost item={item} />
-                }
-            /> */}

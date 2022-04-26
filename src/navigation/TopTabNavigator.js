@@ -7,10 +7,23 @@ const TopTab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = () => {
     return (
-        <TopTab.Navigator>
-            <TopTab.Screen name={"Cars"} component={CarSearchScreen} />
-            <TopTab.Screen name={"Atraction"} component={AtractionSearchScreen} />
-        </TopTab.Navigator>
+        <TopTab.Navigator
+            screenOptions={{
+                tabBarLabelStyle: { fontSize: 12 },
+                tabBarActiveTintColor: '#005B99',
+                tabBarInactiveTintColor: 'gray',
+            }
+            } >
+            <TopTab.Screen
+                name={"Atraction"}
+                component={AtractionSearchScreen}
+            />
+
+            <TopTab.Screen
+                name={"Car rental"}
+                component={CarSearchScreen}
+            />
+        </TopTab.Navigator >
     )
 }
 

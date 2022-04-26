@@ -5,19 +5,30 @@ const styles = StyleSheet.create({
         margin: 4,
         backgroundColor: 'white',
     },
+    imageroot: {
+        flex: 1.5,
+
+    },
+    logostyle: {
+        textAlign: 'center',
+        paddingBottom: 20,
+        color: '#9A0000',
+        fontFamily: 'Impact',
+        fontSize: 15,
+        marginTop: 0
+    },
     image: {
         flex: 1.5,
         height: 150,
         resizeMode: 'contain',
         marginTop: 20,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        marginBottom: 0
     },
     title: {
         fontSize: 18,
-        fontWeight: '900'
-    },
-    plcaes: {
-
+        fontWeight: '900',
+        color: '#005B99'
     },
     rightContainer: {
         flex: 1.5,
@@ -26,6 +37,7 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 18,
         fontWeight: '900',
+        color: 'black'
     },
     ratingContainer: {
         flexDirection: 'row',

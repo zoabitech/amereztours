@@ -1,20 +1,23 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
+import { orderData } from '../../Data/orderdata';
+import OrderPost from '../../components/OrderPost/OrderPost'
 
 const OrderScreen = () => {
     return (
         <View style={styles.root}>
-            <Text>OrderScreen</Text>
+            <FlatList
+                data={orderData}
+                renderItem={({ item }) => <OrderPost item={item} />
+                }
+            />
         </View>
     )
 }
+export default OrderScreen
 
 const styles = StyleSheet.create({
     root: {
-        alignItems: 'center',
-        padding: 30,
-    },
-
+        margin: 2,
+    }
 })
-
-export default OrderScreen
