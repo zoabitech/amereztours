@@ -5,27 +5,41 @@ const styles = StyleSheet.create({
         margin: 4,
         backgroundColor: 'white',
     },
+    rootimage: {
+        flex: 1.5,
+        height: 150,
+        resizeMode: 'contain',
+        marginTop: 20,
+        marginHorizontal: 10,
+    },
     image: {
         flex: 1.5,
         height: 150,
         resizeMode: 'contain',
         marginTop: 20,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+    },
+    like: {
+        alignSelf: 'flex-end',
     },
     title: {
         fontSize: 18,
-        fontWeight: '900'
+        fontWeight: '900',
+        color: '#005B99'
     },
     plcaes: {
-
+        margin: 3,
+        color: '#000'
     },
     rightContainer: {
         flex: 1.5,
         padding: 10,
+
     },
     price: {
         fontSize: 18,
         fontWeight: '900',
+        color: '#9A0000'
     },
     ratingContainer: {
         flexDirection: 'row',

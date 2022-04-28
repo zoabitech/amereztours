@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        fontWeight: '900'
+        fontWeight: '900',
+        color: '#005B99'
     },
     plcaes: {
 
@@ -30,6 +31,9 @@ const styles = StyleSheet.create({
     },
     ratingContainer: {
         flexDirection: 'row',
+    },
+    like: {
+        alignSelf: 'flex-end'
     },
     star: {
         margin: 2,

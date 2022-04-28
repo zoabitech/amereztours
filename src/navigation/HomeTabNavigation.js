@@ -36,7 +36,7 @@ const HomeTabNavigation = (props) => {
                 name={"Liked"}
                 component={LikedScreen}
                 options={{
-                    tabBarIcon: ({ colord }) => (
+                    tabBarIcon: ({ color }) => (
                         <FontAwesome name="heart-o" size={25} color={color} />
                     )
                 }}

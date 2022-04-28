@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import { Text, View, Image } from 'react-native'
+import React, { useState } from 'react'
 import { carData } from '../../Data/cardata';
 import { AtractionData } from '../../Data/atractiondata';
 import styles from './styles';
@@ -10,6 +10,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const CarPost = (props) => {
+    const [liked, setLiked] = useState(false);
     const { item } = props;
     return (
         <View style={[styles.root, styles.shadowProp]}>
@@ -65,6 +66,7 @@ const CarPost = (props) => {
                     <Entypo
                         name="air"
                         size={10}
+                        color={"#005B99"}
                     />
                     {' '}Air-Condition
                 </Text>
@@ -80,7 +82,16 @@ const CarPost = (props) => {
                         />
                     )}
                 </View>
+
                 <Text style={styles.price}>$ {item.price}</Text>
+                <FontAwesome
+                    name={liked ? "heart" : "heart-o"}
+                    size={20}
+                    style={styles.like}
+                    color={"red"}
+                    onPress={() =>
+                        setLiked(!liked)
+                    } />
             </View>
             <Image
                 source={{ uri: item.image }}

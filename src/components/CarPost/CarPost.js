@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import { Text, View, Image } from 'react-native'
+import React, { useState } from 'react'
 import { carData } from '../../Data/cardata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -9,6 +9,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const CarPost = (props) => {
+    const [liked, setLiked] = useState(false);
     const { item } = props;
     return (
         <View>
@@ -68,7 +69,6 @@ const CarPost = (props) => {
                         />
                         {' '}Air-Condition
                     </Text>
-
                     <View style={styles.ratingContainer}>
                         {[0, 0, 0, 0, 0].map((el, i) =>
                             <FontAwesome
@@ -82,10 +82,21 @@ const CarPost = (props) => {
                     </View>
                     <Text style={styles.price}>$ {item.price}</Text>
                 </View>
-                <Image
-                    source={{ uri: item.image }}
-                    style={styles.image}
-                />
+                <View style={styles.rootimage}>
+                    <FontAwesome
+                        name={liked ? "heart" : "heart-o"}
+                        size={20}
+                        style={styles.like}
+                        color={"red"}
+                        onPress={() =>
+                            setLiked(!liked)
+                        } />
+                    <Image
+                        source={{ uri: item.image }}
+                        style={styles.image}
+                    />
+
+                </View>
             </View>
 
         </View >
@@ -94,3 +105,12 @@ const CarPost = (props) => {
 
 export default CarPost;
 
+
+/*<FontAwesome
+    name={liked ? "heart" : "heart"}
+    size={20}
+    color={"red"}
+    onPress={
+        setLiked(!liked)
+    }
+/>*/
