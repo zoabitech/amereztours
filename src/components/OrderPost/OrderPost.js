@@ -3,9 +3,6 @@ import React from 'react'
 import { orderData } from '../../Data/orderdata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const OrderPost = (props) => {
@@ -16,11 +13,11 @@ const OrderPost = (props) => {
                 <View style={styles.rightContainer}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Text
-                        style={styles.pickupandreturndate}>
+                        style={styles.pickupandreturndate}
+                    >
                         <EvilIcons
                             name="calendar"
-                            size={18}
-                            color={'pink'}
+                            size={12}
                         />
                         {' '}{item.pickupdate}{'/'}{item.returndate}
                     </Text>
@@ -28,8 +25,7 @@ const OrderPost = (props) => {
                         style={styles.pickupandreturndate}>
                         <Entypo
                             name="location"
-                            size={18}
-                            color={'pink'}
+                            size={12}
                         />
                         {' '}{item.location}
                     </Text>

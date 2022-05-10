@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     root: {
         flexDirection: 'row',
-        margin: 4,
+        margin: 7,
         backgroundColor: 'white',
     },
     imageroot: {
@@ -28,23 +28,22 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: '900',
-        color: '#005B99'
+        color: '#005B99',
+        margin: 1,
     },
     rightContainer: {
         flex: 1.5,
         padding: 10,
     },
     price: {
+        alignSelf: 'baseline',
         fontSize: 18,
         fontWeight: '900',
-        color: 'black'
+        color: '#9A0000',
+        margin: 1,
     },
     ratingContainer: {
         flexDirection: 'row',
-    },
-    star: {
-        margin: 2,
-        marginVertical: 7,
     },
     shadowProp: {
         borderWidth: 0.1,

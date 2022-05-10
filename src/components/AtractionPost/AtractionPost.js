@@ -4,11 +4,9 @@ import { carData } from '../../Data/cardata';
 import { AtractionData } from '../../Data/atractiondata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 const CarPost = (props) => {
     const [liked, setLiked] = useState(false);
     const { item } = props;
@@ -18,59 +16,40 @@ const CarPost = (props) => {
                 <Text style={styles.title}>{item.title}</Text>
                 <Text
                     style={styles.plcaes}>
-                    <MaterialCommunityIcons
-                        name="car-seat"
-                        size={10}
+                    <Entypo
+                        name="location"
+                        size={12}
                     />
-                    {' '}{item.places}{" Places"}
+                    {' '}{item.location}{ }
                 </Text>
-                <Text
-                    style={styles.plcaes}
-                >
-                    <Feather
-                        name="briefcase"
-                        size={10}
-                    />
-                    {' '}{item.suitcases}{" Suitcases"}
-                </Text>
-                <Text
-                    style={styles.plcaes}
-                >
-                    <MaterialCommunityIcons
-                        name="car-speed-limiter"
-                        size={10}
-                    />
-                    {' '}Limited Mileage
-                </Text>
-                <Text
+                {/* <Text
                     style={styles.plcaes}
                 >
                     <FontAwesome
                         name="drivers-license-o"
-                        size={10}
+                        size={12}
                     />
                     {' '}Driver / Without Driver
-                </Text>
+                </Text> */}
                 <Text
                     style={styles.plcaes}
                 >
                     <AntDesign
                         name="wifi"
-                        size={10}
+                        size={12}
                     />
                     {' '}Wi-Fi
                 </Text>
-                < Text
+                <Text
+                    numberOfLines={3}
                     style={styles.plcaes}
                 >
-                    <Entypo
-                        name="air"
-                        size={10}
-                        color={"#005B99"}
+                    <MaterialIcons
+                        name="description"
+                        size={12}
                     />
-                    {' '}Air-Condition
+                    {item.desc}
                 </Text>
-
                 <View style={styles.ratingContainer}>
                     {[0, 0, 0, 0, 0].map((el, i) =>
                         <FontAwesome
@@ -82,16 +61,17 @@ const CarPost = (props) => {
                         />
                     )}
                 </View>
-
-                <Text style={styles.price}>$ {item.price}</Text>
-                <FontAwesome
-                    name={liked ? "heart" : "heart-o"}
-                    size={20}
-                    style={styles.like}
-                    color={"red"}
-                    onPress={() =>
-                        setLiked(!liked)
-                    } />
+                <View style={styles.pi}>
+                    <FontAwesome
+                        name={liked ? "heart" : "heart-o"}
+                        size={20}
+                        style={styles.like}
+                        color={"red"}
+                        onPress={() =>
+                            setLiked(!liked)
+                        } />
+                    <Text style={styles.price}>$ {item.price}</Text>
+                </View>
             </View>
             <Image
                 source={{ uri: item.image }}

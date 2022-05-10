@@ -1,9 +1,10 @@
 import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
 import React, { useState } from 'react';
-import Logo from '../../../assets/images/company_logo.png'
-import CustomInput from '../../components/CustomInput/CustomInput';
-import CustomButton from '../../components/CustomButton';
-import SocialSignInButtons from '../../components/SocialSignInButtons';
+// import Logo from '../assets/images/company_logo.png'
+import Logo from '../../../../assets/images/company_logo.png'
+import CustomInput from '../../../components/CustomInput/CustomInput';
+import CustomButton from '../../../components/CustomButton';
+import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 

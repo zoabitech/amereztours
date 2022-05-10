@@ -1,16 +1,21 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import CustomButton from '../../components/CustomButton'
-import { color } from 'react-native-reanimated'
-
+import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
 const ProfileScreen = () => {
+    const navigation = useNavigation();
+    const { control, handleSubmit } = useForm();
+    const onSignInPressed = () => {
+        navigation.navigate('SignIn')
+    }
     return (
         <View style={styles.root}>
             <View style={styles.conta}><Text>hello</Text></View>
             <CustomButton
                 text="Sign in or create account"
                 type='TERTIARY'
-            //onPress={handleSubmit(onSignInPressed)}
+                onPress={handleSubmit(onSignInPressed)}
             />
             <CustomButton
                 text="Contact Customer Service"
@@ -43,7 +48,7 @@ const styles = StyleSheet.create({
     },
     conta: {
         width: '100%',
-        height: '100%',
+        height: 200,
         backgroundColor: '#000'
     }
 })

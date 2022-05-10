@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import CustomImput from '../../components/CustomInput/CustomInput';
-import CustomButton from '../../components/CustomButton';
-import SocialSignInButtons from '../../components/SocialSignInButtons';
+import CustomImput from '../../../components/CustomInput/CustomInput';
+import CustomButton from '../../../components/CustomButton';
+import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 const ConfirmEmailScreen = () => {

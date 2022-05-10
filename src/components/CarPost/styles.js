@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 18,
         fontWeight: '900',
-        color: '#9A0000'
+        color: '#9A0000',
+        alignSelf: 'flex-end'
     },
     ratingContainer: {
         flexDirection: 'row',

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     root: {
         flexDirection: 'row',
-        margin: 3,
+        margin: 7,
         backgroundColor: 'white',
     },
     image: {
@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
         color: '#005B99'
     },
     plcaes: {
-
+        margin: 3,
+        color: '#000'
     },
     leftContainer: {
         flex: 1,
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 18,
         fontWeight: '900',
+        color: '#9A0000'
     },
     ratingContainer: {
         flexDirection: 'row',
@@ -43,6 +45,10 @@ const styles = StyleSheet.create({
         borderWidth: 0.1,
         borderColor: "#000",
         elevation: 4,
+    },
+    pi: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 })
 
