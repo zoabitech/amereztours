@@ -56,6 +56,8 @@ const SignInScreen = () => {
                 <CustomButton
                     text="Sign In"
                     onPress={handleSubmit(onSignInPressed)}
+                    bgColor="rgb(251, 78, 41)"
+                    fgColor="rgb(193,202,202)"
                 />
 
                 <CustomButton

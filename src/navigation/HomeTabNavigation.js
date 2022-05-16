@@ -19,7 +19,7 @@ const HomeTabNavigation = (props) => {
                 headerShown: false,
                 tabBarActiveTintColor: '#005B99',
                 tabBarInactiveTintColor: 'gray',
-                tabBarStyle: { borderTopWidth: 0.5, borderTopColor: 'gray' }
+                tabBarStyle: { borderTopWidth: 0.5, borderTopColor: 'gray', fontWeight: '1000' }
             }}
         >
             <Tab.Screen

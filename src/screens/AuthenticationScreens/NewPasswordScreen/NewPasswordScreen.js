@@ -46,7 +46,10 @@ const NewPasswordScreen = () => {
                 />
                 <CustomButton
                     text="Submit"
-                    onPress={handleSubmit(onSubmitPressed)} />
+                    onPress={handleSubmit(onSubmitPressed)}
+                    bgColor="rgb(251, 78, 41)"
+                    fgColor="rgb(193,202,202)"
+                />
                 <CustomButton
                     text="Back to sign in"
                     onPress={onBackToSignInPressed}

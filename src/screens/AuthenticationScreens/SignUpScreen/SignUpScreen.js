@@ -5,6 +5,7 @@ import CustomButton from '../../../components/CustomButton';
 import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
+import axios, { Axios } from 'axios';
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -15,7 +16,7 @@ const SignUpScreen = () => {
     const navigation = useNavigation();
 
     const onSignUpPressed = (data) => {
-        navigation.navigate("Confirm");
+
     }
     const onAlreadyHaveAccountPressed = () => {
         navigation.navigate("SignIn");
@@ -32,11 +33,33 @@ const SignUpScreen = () => {
                 <Text style={styles.title}>Create an account</Text>
 
                 <CustomInput
+                    name="firstName"
+                    placeholder="First Name"
+                    control={control}
+                    rules={{ required: 'firstName is required', pattern: { value: 10, message: 'firstName is invalid' } }}
+                />
+
+                <CustomInput
+                    name="phoneNumber"
+                    placeholder="Phone Number"
+                    control={control}
+                    rules={{ required: 'Phone number is required', pattern: { value: 10, message: 'Phone number is invalid' } }}
+                />
+
+                <CustomInput
+                    name="CIN_Passeport"
+                    placeholder="CIN / Passeport"
+                    control={control}
+                    rules={{ required: 'CIN / Passeport is required', pattern: { value: 10, message: 'CIN / Passeport is invalid' } }}
+                />
+
+                <CustomInput
                     name="E-mail"
                     placeholder="E-mail"
                     control={control}
                     rules={{ required: 'Email is required', pattern: { value: EMAIL_REGEX, message: 'Email is invalid' } }}
                 />
+
                 <CustomInput
                     name="Password"
                     placeholder="Password"
@@ -55,9 +78,13 @@ const SignUpScreen = () => {
                             value === pwd || "Password do not match",
                     }}
                 />
+
                 <CustomButton
                     text="Sign Up"
-                    onPress={handleSubmit(onSignUpPressed)} />
+                    onPress={handleSubmit(onSignUpPressed)}
+                    bgColor="rgb(251, 78, 41)"
+                    fgColor="rgb(193,202,202)"
+                />
 
                 <Text style={styles.agrees}>By creating and account,you agree to amereztours
                     {'\n'} <Text style={styles.hyperlinkStyle} onPress={onTermsOfUsePreesed}>Terms of use</Text> and <Text style={styles.hyperlinkStyle} onPress={onPrivacyPolicyPreesed}>Privacy policy</Text></Text>
