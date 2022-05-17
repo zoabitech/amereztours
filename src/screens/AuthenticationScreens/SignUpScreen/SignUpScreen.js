@@ -5,7 +5,9 @@ import CustomButton from '../../../components/CustomButton';
 import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
+
+
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -14,9 +16,18 @@ const SignUpScreen = () => {
     const { control, handleSubmit, watch } = useForm();
     const pwd = watch('Password');
     const navigation = useNavigation();
-
-    const onSignUpPressed = (data) => {
-
+    const { fistname, setFirstName } = useState('')
+    const onSignUpPressed = async (data) => {
+        const { firstName, phoneNumber } = data;
+        try {
+            const response = await axios.post(`http://192.168.1.183:3001/register`, {
+                first_name: firstName,
+                last_name: phoneNumber,
+            });
+        } catch (error) {
+            alert("An error has occurred");
+            console.log(error)
+        }
     }
     const onAlreadyHaveAccountPressed = () => {
         navigation.navigate("SignIn");
