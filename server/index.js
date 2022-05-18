@@ -2,17 +2,22 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const bcrypt = require("bcrypt");
 const mysql = require('mysql');
 
+
+// app.use(bodyParser.json({ type: 'applaction/josn' }))
+// app.use(bodyParser.urlencoded({ extended: true }))
+// let ecodedBodyParser = bodyParser.urlencoded({ extended: true })
 app.use(cors());
-app.use(bodyParser.json({ type: 'applaction/josn' }))
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "amerezturs",
+    database: "amereztous",
 })
 
 
@@ -40,17 +45,16 @@ app.get('/user', (req, res) => {
 app.post("/register", (req, res) => {
     const first_name = req.body.firstName;
     const last_name = req.body.phoneNumber;
-    console.log(first_name)
-    const sqlInsert = "INSERT INTO test (first_name,last_name) VALUES (?,?);"
+    const Passeport = req.body.CIN_Passeport;
+    const hash = bcrypt.hashSync(Passeport, 5);
 
-    db.query(sqlInsert, [first_name, last_name], (err, result) => {
+    const sqlInsert = "INSERT INTO test (first_name,cn_passeport,phone_number) VALUES (?,?,?);"
+
+    db.query(sqlInsert, [first_name, hash, last_name], (err, result) => {
         if (err) throw err
         console.log(result)
     })
 });
-
-
-
 
 
 

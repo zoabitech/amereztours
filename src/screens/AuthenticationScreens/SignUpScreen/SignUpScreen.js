@@ -18,11 +18,12 @@ const SignUpScreen = () => {
     const navigation = useNavigation();
     const { fistname, setFirstName } = useState('')
     const onSignUpPressed = async (data) => {
-        const { firstName, phoneNumber } = data;
+        const { firstName, phoneNumber, CIN_Passeport } = data;
         try {
-            const response = await axios.post(`http://192.168.1.183:3001/register`, {
-                first_name: firstName,
-                last_name: phoneNumber,
+            const response = await axios.post(`http://172.16.2.223:3001/register`, {
+                firstName,
+                phoneNumber,
+                CIN_Passeport,
             });
         } catch (error) {
             alert("An error has occurred");
