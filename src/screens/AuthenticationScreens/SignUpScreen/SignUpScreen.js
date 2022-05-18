@@ -19,47 +19,22 @@ const SignUpScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const onSignUpPressed = async (data) => {
-
-        // const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
-        // try {
-        //     const response = await axios.post(`http://192.168.1.183:3001/register`, {
-        //         firstName,
-        //         lastName,
-        //         phoneNumber,
-        //         CIN_Passeport,
-        //         address,
-        //         userName,
-        //         Email,
-        //         Password,
-        //     });
-        //     console.log("response.status")
-        //     if (response.status === 201) {
-        //         Alert.alert(` You have created: ${JSON.stringify(response.data)}`);
-        //         setIsLoading(false);
-        //         setFullName('');
-        //         setEmail('');
-        //     } else {
-        //         throw new Error("An error has occurred");
-        //     }
-        // } catch (error) {
-        //     Alert.alert(`${error.message}`);
-        // }
-        // const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
+        const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
         await axios.post('http://192.168.1.183:3001/register', {
-            firstName: data.firstName,
-            lastName: data.firstName,
-            phoneNumber: data.firstName,
-            CIN_Passeport: data.firstName,
-            address: data.firstName,
-            userName: data.firstName,
-            Email: data.firstName,
-            Password: data.firstName
+            firstName,
+            lastName,
+            phoneNumber,
+            CIN_Passeport,
+            address,
+            userName,
+            Email,
+            Password
 
-        }).then(function (response) {
+        }).then((response) => {
             // handle success
             Alert.alert(JSON.stringify(response.data));
-            navigation.navigate("SignIn");
-        }).catch(function (error) {
+            navigation.navigate("Confirm");
+        }).catch((error) => {
             // handle error
             alert(error.message);
         });

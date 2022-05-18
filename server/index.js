@@ -59,7 +59,7 @@ app.post("/register", (req, res) => {
 
     db.query(sqlUserInsert, [firstName, lastName, phone_number, passeport, address, userName, email, hashPassword], (err, result) => {
         if (err) throw err
-        console.log(result)
+        res.send()
     })
 });
 
