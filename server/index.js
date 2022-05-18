@@ -1,10 +1,9 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 const cors = require('cors')
 const bcrypt = require("bcrypt");
 const mysql = require('mysql');
-
 
 // app.use(bodyParser.json({ type: 'applaction/josn' }))
 // app.use(bodyParser.urlencoded({ extended: true }))
@@ -14,10 +13,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 const db = mysql.createConnection({
+
     host: "localhost",
     user: "root",
     password: "",
-    database: "amereztous",
+    database: "amereztours",
 })
 
 
@@ -43,14 +43,21 @@ app.get('/user', (req, res) => {
     })
 })
 app.post("/register", (req, res) => {
-    const first_name = req.body.firstName;
-    const last_name = req.body.phoneNumber;
-    const Passeport = req.body.CIN_Passeport;
-    const hash = bcrypt.hashSync(Passeport, 5);
 
-    const sqlInsert = "INSERT INTO test (first_name,cn_passeport,phone_number) VALUES (?,?,?);"
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const phone_number = req.body.phoneNumber;
+    const passeport = req.body.CIN_Passeport;
+    const address = req.body.address;
+    const userName = req.body.userName;
+    const email = req.body.Email;
+    const password = req.body.Password;
+    const hashPassword = bcrypt.hashSync(password, 5);
 
-    db.query(sqlInsert, [first_name, hash, last_name], (err, result) => {
+    const sqlUserInsert =
+        "INSERT INTO users (first_name,last_name,phone,passport,address,username,email,password) VALUES (?,?,?,?,?,?,?,?);"
+
+    db.query(sqlUserInsert, [firstName, lastName, phone_number, passeport, address, userName, email, hashPassword], (err, result) => {
         if (err) throw err
         console.log(result)
     })

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
@@ -16,20 +16,58 @@ const SignUpScreen = () => {
     const { control, handleSubmit, watch } = useForm();
     const pwd = watch('Password');
     const navigation = useNavigation();
-    const { fistname, setFirstName } = useState('')
+    const [isLoading, setIsLoading] = useState(false);
+
     const onSignUpPressed = async (data) => {
-        const { firstName, phoneNumber, CIN_Passeport } = data;
-        try {
-            const response = await axios.post(`http://172.16.2.223:3001/register`, {
-                firstName,
-                phoneNumber,
-                CIN_Passeport,
-            });
-        } catch (error) {
-            alert("An error has occurred");
-            console.log(error)
-        }
+
+        // const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
+        // try {
+        //     const response = await axios.post(`http://192.168.1.183:3001/register`, {
+        //         firstName,
+        //         lastName,
+        //         phoneNumber,
+        //         CIN_Passeport,
+        //         address,
+        //         userName,
+        //         Email,
+        //         Password,
+        //     });
+        //     console.log("response.status")
+        //     if (response.status === 201) {
+        //         Alert.alert(` You have created: ${JSON.stringify(response.data)}`);
+        //         setIsLoading(false);
+        //         setFullName('');
+        //         setEmail('');
+        //     } else {
+        //         throw new Error("An error has occurred");
+        //     }
+        // } catch (error) {
+        //     Alert.alert(`${error.message}`);
+        // }
+        // const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
+        await axios.post('http://192.168.1.183:3001/register', {
+            firstName: data.firstName,
+            lastName: data.firstName,
+            phoneNumber: data.firstName,
+            CIN_Passeport: data.firstName,
+            address: data.firstName,
+            userName: data.firstName,
+            Email: data.firstName,
+            Password: data.firstName
+
+        }).then(function (response) {
+            // handle success
+            Alert.alert(JSON.stringify(response.data));
+            navigation.navigate("SignIn");
+        }).catch(function (error) {
+            // handle error
+            alert(error.message);
+        });
+
+
+
     }
+
     const onAlreadyHaveAccountPressed = () => {
         navigation.navigate("SignIn");
     }
@@ -48,7 +86,14 @@ const SignUpScreen = () => {
                     name="firstName"
                     placeholder="First Name"
                     control={control}
-                    rules={{ required: 'firstName is required', pattern: { value: 10, message: 'firstName is invalid' } }}
+                    rules={{ required: 'First name is required', pattern: { value: 10, message: 'First name is invalid' } }}
+                />
+
+                <CustomInput
+                    name="lastName"
+                    placeholder="Last Name"
+                    control={control}
+                    rules={{ required: 'Last name is required', pattern: { value: 10, message: 'Last Name is invalid' } }}
                 />
 
                 <CustomInput
@@ -66,8 +111,22 @@ const SignUpScreen = () => {
                 />
 
                 <CustomInput
-                    name="E-mail"
-                    placeholder="E-mail"
+                    name="address"
+                    placeholder="Address"
+                    control={control}
+                    rules={{ required: 'Adress is required', pattern: { value: {}, message: 'Adress is invalid' } }}
+                />
+
+                <CustomInput
+                    name="userName"
+                    placeholder="User name"
+                    control={control}
+                    rules={{ required: 'User name is required', pattern: { value: 5, message: 'User name is invalid' } }}
+                />
+
+                <CustomInput
+                    name="Email"
+                    placeholder="Email"
                     control={control}
                     rules={{ required: 'Email is required', pattern: { value: EMAIL_REGEX, message: 'Email is invalid' } }}
                 />
