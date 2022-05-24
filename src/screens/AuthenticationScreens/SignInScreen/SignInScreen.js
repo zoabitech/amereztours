@@ -15,8 +15,25 @@ const SignInScreen = () => {
     const { control, handleSubmit } = useForm();
     const navigation = useNavigation();
 
-    const onSignInPressed = (data) => {
+    const onSignInPressed = async (data) => {
         //validate user
+        const { userName, Password } = data;
+        await axios.post('http://172.16.2.182:3001/login', {
+
+            userName,
+            Password
+
+        }).then((response) => {
+            // handle success
+            Alert.alert(
+                "you well recevie an code confirmation enter"
+            );
+            navigation.navigate("home");
+        }).catch((error) => {
+            // handle error
+            alert(error.message);
+        });
+
         navigation.navigate('home');
     }
     const onForgotPasswordPressed = () => {

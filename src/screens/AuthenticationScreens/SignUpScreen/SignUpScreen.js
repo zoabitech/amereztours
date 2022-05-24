@@ -7,8 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 
-
-
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const SignUpScreen = () => {
@@ -17,10 +15,9 @@ const SignUpScreen = () => {
     const pwd = watch('Password');
     const navigation = useNavigation();
     const [isLoading, setIsLoading] = useState(false);
-
     const onSignUpPressed = async (data) => {
         const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
-        await axios.post('http://192.168.1.183:3001/register', {
+        await axios.post('http://172.16.1.112:3001/register', {
             firstName,
             lastName,
             phoneNumber,
@@ -32,15 +29,14 @@ const SignUpScreen = () => {
 
         }).then((response) => {
             // handle success
-            Alert.alert(JSON.stringify(response.data));
-            navigation.navigate("Confirm");
+            Alert.alert(
+                "you well recevie an code confirmation enter"
+            );
+            navigation.navigate("SignUp");
         }).catch((error) => {
             // handle error
             alert(error.message);
         });
-
-
-
     }
 
     const onAlreadyHaveAccountPressed = () => {
@@ -130,6 +126,7 @@ const SignUpScreen = () => {
                     onPress={handleSubmit(onSignUpPressed)}
                     bgColor="rgb(251, 78, 41)"
                     fgColor="rgb(193,202,202)"
+
                 />
 
                 <Text style={styles.agrees}>By creating and account,you agree to amereztours

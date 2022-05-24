@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import CustomImput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
@@ -9,8 +9,8 @@ const ConfirmEmailScreen = () => {
     const { control, handleSubmit, watch } = useForm();
     const Navigation = useNavigation();
 
-    const onConfirmPressed = () => {
-        Navigation.navigate("home");
+    const onConfirmPressed = (data) => {
+
     }
     const onBackToSignInPressed = () => {
         Navigation.navigate("SignIn");
@@ -28,7 +28,7 @@ const ConfirmEmailScreen = () => {
                     name="code"
                     control={control}
                     placeholder="Enter your confirmation code"
-                    rules={{ required: 'Code is required', minLength: { value: 10, message: 'Code should be minimum 10 characters long' } }}
+                    rules={{ required: 'Code is required', minLength: { value: 4, message: 'Code should be minimum 10 characters long' } }}
                 />
 
                 <CustomButton
