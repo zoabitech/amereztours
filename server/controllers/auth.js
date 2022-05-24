@@ -8,70 +8,70 @@ const signup = (req, res, next) => {
     // checks if email already exists
     User.findOne({
         where: {
-            email: req.body.email,
+            email: req.body.Email,
         }
-    })
-        .then(dbUser => {
-            if (dbUser) {
-                return res.status(409).json({ message: "email already exists" });
-            } else if (req.body.email && req.body.password) {
-                // password hash
-                bcrypt.hash(req.body.password, 12, (err, passwordHash) => {
-                    if (err) {
-                        return res.status(500).json({ message: "couldnt hash the password" });
-                    } else if (passwordHash) {
-                        return User.create(({
-                            email: req.body.email,
-                            name: req.body.name,
-                            password: passwordHash,
-                        }))
-                            .then(() => {
-                                res.status(200).json({ message: "user created" });
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                res.status(502).json({ message: "error while creating the user" });
-                            });
-                    };
-                });
-            } else if (!req.body.password) {
-                return res.status(400).json({ message: "password not provided" });
-            } else if (!req.body.email) {
-                return res.status(400).json({ message: "email not provided" });
-            };
-        })
-        .catch(err => {
-            console.log('error', err);
-        });
+    }).then(dbUser => {
+        if (dbUser) {
+            return res.status(409).json({ message: "email already exists" });
+        } else if (req.body.Email && req.body.Password) {
+            // password hash
+            bcrypt.hash(req.body.Password, 12, (err, passwordHash) => {
+                if (err) {
+                    return res.status(500).json({ message: "couldnt hash the password" });
+                } else if (passwordHash) {
+                    return User.create(({
+                        first_name: req.body.firstName,
+                        last_name: req.body.lastName,
+                        phone: req.body.phoneNumber,
+                        passport: req.body.CIN_Passeport,
+                        address: req.body.address,
+                        username: req.body.userName,
+                        email: req.body.Email,
+                        password: passwordHash,
+                    })).then(() => {
+                        res.status(200).json({ message: "user created" });
+                    }).catch(err => {
+                        console.log(err);
+                        res.status(502).json({ message: "error while creating the user" });
+                    });
+                };
+            });
+        } else if (!req.body.Password) {
+            return res.status(400).json({ message: "password not provided" });
+        } else if (!req.body.Email) {
+            return res.status(400).json({ message: "email not provided" });
+        };
+    }).catch(err => {
+        console.log('error', err);
+    });
 };
 
 const login = (req, res, next) => {
     // checks if email exists
     User.findOne({
         where: {
-            email: req.body.email,
+            // email: req.body.Email
+            email: req.body.Email
         }
-    })
-        .then(dbUser => {
-            if (!dbUser) {
-                return res.status(404).json({ message: "user not found" });
-            } else {
-                // password hash
-                bcrypt.compare(req.body.password, dbUser.password, (err, compareRes) => {
-                    if (err) { // error while comparing
-                        res.status(502).json({ message: "error while checking user password" });
-                    } else if (compareRes) { // password match
-                        const token = jwt.sign({ email: req.body.email }, 'secret', { expiresIn: '1h' });
-                        res.status(200).json({ message: "user logged in", "token": token });
-                    } else { // password doesnt match
-                        res.status(401).json({ message: "invalid credentials" });
-                    };
-                });
-            };
-        })
-        .catch(err => {
-            console.log('error', err);
-        });
+    }).then(dbUser => {
+        if (!dbUser) {
+            return res.status(404).json({ message: "user not found" });
+        } else {
+            // password hash
+            bcrypt.compare(req.body.Password, dbUser.password, (err, compareRes) => {
+                if (err) { // error while comparing
+                    res.status(502).json({ message: "error while checking user password" });
+                } else if (compareRes) { // password match
+                    const token = jwt.sign({ email: req.body.Email }, 'secret', { expiresIn: '1h' });
+                    res.status(200).json({ message: "user logged in", "token": token });
+                } else { // password doesnt match
+                    res.status(401).json({ message: "invalid credentials" });
+                };
+            });
+        };
+    }).catch(err => {
+        console.log('error', err.message);
+    });
 };
 
 const isAuth = (req, res, next) => {

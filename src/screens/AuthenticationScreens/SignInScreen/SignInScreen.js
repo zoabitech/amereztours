@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
+import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, Platform } from 'react-native'
 import React, { useState } from 'react';
 // import Logo from '../assets/images/company_logo.png'
 import Logo from '../../../../assets/images/company_logo.png'
@@ -9,33 +9,108 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
+const API_URL = Platform.OS === 'android' ? 'http://localhost:5000' : 'http://192.168.1.183:3001';
 const SignInScreen = () => {
     const { height } = useWindowDimensions();
     const { control, handleSubmit } = useForm();
     const navigation = useNavigation();
 
+    // const onSignInPressed = async (data) => {
+    //     //validate user
+    //     const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
+    //     const payload = {
+    //         Email,
+    //         Password
+    //     };
+    //     fetch(`http://192.168.1.183:3001/${'login'}`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(payload),
+    //     }).then(async res => {
+    //         try {
+    //             const jsonRes = await res.json();
+    //             if (res.status !== 200) {
+    //                 // setIsError(true);
+    //                 // setMessage(jsonRes.message);
+    //                 Alert.alert(jsonRes.message);
+    //             } else {
+    //                 Alert.alert(jsonRes.message);
+    //                 navigation.navigate("SignIn")
+    //                 onLoggedIn(jsonRes.token);
+    //                 // setMessage(jsonRes.message);
+    //             }
+    //         } catch (err) {
+    //             console.log(err);
+    //         };
+    //     }).catch(err => {
+    //         console.log(err);
+    //     });
+    // }
+    // const onLoggedIn = (token) => {
+    //     console.log(token)
+    //     console.log("onLoggedIn");
+    //     fetch(`http://192.168.1.183:3001/private`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${token}`,
+    //         },
+    //     }).then(async res => {
+    //         try {
+    //             const jsonRes = await res.json();
+    //             if (res.status === 200) {
+    //                 // setMessage(jsonRes.message);
+    //                 alert(jsonRes.message)
+    //             }
+    //         } catch (err) {
+    //             console.log(err.message);
+    //         };
+    //     }).catch(err => {
+    //         console.log(err.message);
+    //     });
+    // }
+
     const onSignInPressed = async (data) => {
-        //validate user
-        const { userName, Password } = data;
-        await axios.post('http://172.16.2.182:3001/login', {
+        const { Email, Password } = data;
 
-            userName,
-            Password
-
-        }).then((response) => {
-            // handle success
-            Alert.alert(
-                "you well recevie an code confirmation enter"
-            );
-            navigation.navigate("home");
-        }).catch((error) => {
-            // handle error
-            alert(error.message);
+        const payload = {
+            email: data.Email,
+            password: data.Password,
+        };
+        fetch(`http://192.168.1.183:3001/login`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        }).then(async res => {
+            console.log(payload)
+            try {
+                const jsonRes = await res.json();
+                navigation.navigate("home")
+                if (res.status !== 200) {
+                    // setIsError(true);
+                    // setMessage(jsonRes.message);
+                    alert(jsonRes.message);
+                } else {
+                    onLoggedIn(jsonRes.token);
+                    console.log(jsonRes.token)
+                    navigation.navigate("home")
+                    // setIsError(false);
+                    // setMessage(jsonRes.message);
+                    alert(jsonRes.message);
+                }
+            } catch (err) {
+                console.log(err.message);
+            };
+        }).catch(err => {
+            console.log(err.message);
         });
+    };
 
-        navigation.navigate('home');
-    }
     const onForgotPasswordPressed = () => {
         navigation.navigate('ForgetPassword')
     }

@@ -15,7 +15,7 @@ const Navigation = (props) => {
 
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }} >
-                {/* <Stack.Screen name={"home"} component={BottomTabNavigation} /> */}
+                <Stack.Screen name={"home"} component={BottomTabNavigation} />
                 <Stack.Screen name="SignIn" component={SignInScreen} />
                 <Stack.Screen name="SinUp" component={SignUpScreen} />
                 <Stack.Screen name="Confirm" component={ConfirmEmailScreen} />

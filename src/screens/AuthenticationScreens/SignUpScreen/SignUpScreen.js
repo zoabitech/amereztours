@@ -1,23 +1,24 @@
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, StyleSheet, ScrollView, Platform, Alert } from 'react-native'
+import React from 'react'
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
 import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
-import axios from 'axios';
-
+// import { onLoggedIn } from '../SignUpScreen/SignInScreen'
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+import SignInScreen from '../SignInScreen'
+
+const API_URL = Platform.OS === 'android' ? 'http://localhost:5000' : 'http://192.168.1.183:3001';
 
 const SignUpScreen = () => {
-
     const { control, handleSubmit, watch } = useForm();
     const pwd = watch('Password');
     const navigation = useNavigation();
-    const [isLoading, setIsLoading] = useState(false);
+
     const onSignUpPressed = async (data) => {
         const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
-        await axios.post('http://172.16.1.112:3001/register', {
+        const payload = {
             firstName,
             lastName,
             phoneNumber,
@@ -26,17 +27,34 @@ const SignUpScreen = () => {
             userName,
             Email,
             Password
-
-        }).then((response) => {
-            // handle success
-            Alert.alert(
-                "you well recevie an code confirmation enter"
-            );
-            navigation.navigate("SignUp");
-        }).catch((error) => {
-            // handle error
-            alert(error.message);
-        });
+        };
+        fetch(`http://192.168.1.183:3001/${'signup'}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        })
+            .then(async res => {
+                try {
+                    const jsonRes = await res.json();
+                    if (res.status !== 200) {
+                        // setIsError(true);
+                        // setMessage(jsonRes.message);
+                        Alert.alert(jsonRes.message);
+                    } else {
+                        Alert.alert(jsonRes.message);
+                        navigation.navigate("SignIn")
+                        // onLoggedIn(jsonRes.token);
+                        // setMessage(jsonRes.message);
+                    }
+                } catch (err) {
+                    console.log(err);
+                };
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     const onAlreadyHaveAccountPressed = () => {
@@ -165,3 +183,25 @@ const styles = StyleSheet.create({
     },
 })
 export default SignUpScreen
+
+
+//await axios.post('http://172.16.1.112:3001/register', {
+        //     firstName,
+        //     lastName,
+        //     phoneNumber,
+        //     CIN_Passeport,
+        //     address,
+        //     userName,
+        //     Email,
+        //     Password
+
+        // }).then((response) => {
+        //     // handle success
+        //     Alert.alert(
+        //         "you well recevie an code confirmation enter"
+        //     );
+        //     navigation.navigate("SignUp");
+        // }).catch((error) => {
+        //     // handle error
+        //     alert(error.message);
+        // });
