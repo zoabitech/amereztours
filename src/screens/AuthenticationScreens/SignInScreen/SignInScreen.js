@@ -48,60 +48,55 @@ const SignInScreen = () => {
     //         console.log(err);
     //     });
     // }
-    // const onLoggedIn = (token) => {
-    //     console.log(token)
-    //     console.log("onLoggedIn");
-    //     fetch(`http://192.168.1.183:3001/private`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${token}`,
-    //         },
-    //     }).then(async res => {
-    //         try {
-    //             const jsonRes = await res.json();
-    //             if (res.status === 200) {
-    //                 // setMessage(jsonRes.message);
-    //                 alert(jsonRes.message)
-    //             }
-    //         } catch (err) {
-    //             console.log(err.message);
-    //         };
-    //     }).catch(err => {
-    //         console.log(err.message);
-    //     });
-    // }
+    const onLoggedIn = (token) => {
+        console.log(token)
+        console.log("onLoggedIn");
+        fetch(`http://192.168.1.183:3001/private`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        }).then(async res => {
+            try {
+                const jsonRes = await res.json();
+                if (res.status === 200) {
+                    // setMessage(jsonRes.message);
+                    alert(jsonRes.message)
+                }
+            } catch (err) {
+                console.log(err.message);
+            };
+        }).catch(err => {
+            console.log(err.message);
+        });
+    }
 
     const onSignInPressed = async (data) => {
         const { Email, Password } = data;
 
         const payload = {
-            email: data.Email,
-            password: data.Password,
+            Email,
+            Password,
         };
         fetch(`http://192.168.1.183:3001/login`, {
             method: 'POST',
-            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
         }).then(async res => {
-            console.log(payload)
             try {
                 const jsonRes = await res.json();
-                navigation.navigate("home")
                 if (res.status !== 200) {
                     // setIsError(true);
                     // setMessage(jsonRes.message);
                     alert(jsonRes.message);
                 } else {
                     onLoggedIn(jsonRes.token);
-                    console.log(jsonRes.token)
-                    navigation.navigate("home")
-                    // setIsError(false);
-                    // setMessage(jsonRes.message);
                     alert(jsonRes.message);
+                    navigation.navigate("home")
+
                 }
             } catch (err) {
                 console.log(err.message);
@@ -131,7 +126,7 @@ const SignInScreen = () => {
                 <Text style={styles.title}>Login in your account</Text>
 
                 <CustomInput
-                    name="E-mail"
+                    name="Email"
                     placeholder="E-mail"
                     control={control}
                     rules={{ required: 'Email is required', pattern: { value: EMAIL_REGEX, message: 'Email is invalid' } }}
