@@ -15,39 +15,7 @@ const SignInScreen = () => {
     const { control, handleSubmit } = useForm();
     const navigation = useNavigation();
 
-    // const onSignInPressed = async (data) => {
-    //     //validate user
-    //     const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
-    //     const payload = {
-    //         Email,
-    //         Password
-    //     };
-    //     fetch(`http://192.168.1.183:3001/${'login'}`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(payload),
-    //     }).then(async res => {
-    //         try {
-    //             const jsonRes = await res.json();
-    //             if (res.status !== 200) {
-    //                 // setIsError(true);
-    //                 // setMessage(jsonRes.message);
-    //                 Alert.alert(jsonRes.message);
-    //             } else {
-    //                 Alert.alert(jsonRes.message);
-    //                 navigation.navigate("SignIn")
-    //                 onLoggedIn(jsonRes.token);
-    //                 // setMessage(jsonRes.message);
-    //             }
-    //         } catch (err) {
-    //             console.log(err);
-    //         };
-    //     }).catch(err => {
-    //         console.log(err);
-    //     });
-    // }
+
     const onLoggedIn = (token) => {
         console.log(token)
         console.log("onLoggedIn");
@@ -92,11 +60,10 @@ const SignInScreen = () => {
                     // setIsError(true);
                     // setMessage(jsonRes.message);
                     alert(jsonRes.message);
+                    navigation.navigate("home")
                 } else {
                     onLoggedIn(jsonRes.token);
                     alert(jsonRes.message);
-                    navigation.navigate("home")
-
                 }
             } catch (err) {
                 console.log(err.message);
