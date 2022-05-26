@@ -1,6 +1,5 @@
 import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, Platform } from 'react-native'
 import React, { useState } from 'react';
-// import Logo from '../assets/images/company_logo.png'
 import Logo from '../../../../assets/images/company_logo.png'
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
@@ -16,9 +15,7 @@ const SignInScreen = () => {
     const navigation = useNavigation();
 
 
-    const onLoggedIn = (token) => {
-        console.log(token)
-        console.log("onLoggedIn");
+    const onLoggedIn = async (token) => {
         fetch(`http://192.168.1.183:3001/private`, {
             method: 'GET',
             headers: {
@@ -31,6 +28,8 @@ const SignInScreen = () => {
                 if (res.status === 200) {
                     // setMessage(jsonRes.message);
                     alert(jsonRes.message)
+                    console.log(jsonRes.message)
+                    navigation.navigate("home")
                 }
             } catch (err) {
                 console.log(err.message);
@@ -60,7 +59,6 @@ const SignInScreen = () => {
                     // setIsError(true);
                     // setMessage(jsonRes.message);
                     alert(jsonRes.message);
-                    navigation.navigate("home")
                 } else {
                     onLoggedIn(jsonRes.token);
                     alert(jsonRes.message);

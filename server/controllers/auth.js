@@ -1,21 +1,24 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 import jwt from 'jsonwebtoken';
+// import { or } from 'react-native-reanimated';
 
 import User from '../models/user.js';
-
-const signup = (req, res, next) => {
+const signup = async (req, res, next) => {
     // checks if email already exists
-    User.findOne({
+    const dbUser = await User.findOne({
         where: {
             email: req.body.Email,
+            phone: req.body.phoneNumber,
+            passport: req.body.CIN_Passeport,
+            username: req.body.userName,
         }
     }).then(dbUser => {
         if (dbUser) {
             return res.status(409).json({ message: "email already exists" });
         } else if (req.body.Email && req.body.Password) {
             // password hash
-            bcrypt.hash(req.body.Password, 12, (err, passwordHash) => {
+            bcrypt.hash(req.body.Password, 10, (err, passwordHash) => {
                 if (err) {
                     return res.status(500).json({ message: "couldnt hash the password" });
                 } else if (passwordHash) {

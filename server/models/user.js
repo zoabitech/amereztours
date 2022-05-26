@@ -16,6 +16,7 @@ const User = sequelize.define('users', {
     phone: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true
     },
     last_name: {
         type: Sequelize.STRING,
@@ -24,10 +25,12 @@ const User = sequelize.define('users', {
     username: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true
     },
     passport: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true
     },
     address: {
         type: Sequelize.STRING,
@@ -36,6 +39,7 @@ const User = sequelize.define('users', {
     email: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true
     },
     password: {
         type: Sequelize.STRING,
