@@ -2,16 +2,13 @@ import bcrypt from 'bcrypt';
 
 import jwt from 'jsonwebtoken';
 // import { or } from 'react-native-reanimated';
-
 import User from '../models/user.js';
+
 const signup = async (req, res, next) => {
     // checks if email already exists
     const dbUser = await User.findOne({
         where: {
             email: req.body.Email,
-            phone: req.body.phoneNumber,
-            passport: req.body.CIN_Passeport,
-            username: req.body.userName,
         }
     }).then(dbUser => {
         if (dbUser) {
@@ -77,6 +74,45 @@ const login = (req, res, next) => {
     });
 };
 
+const restpassword = async (req, res, next) => {
+    // checks if email already exists
+    // const dbUser = User.findOne({
+    //     where: {
+    //         email: req.body.Email,
+    //     }
+    // }).then(dbUser => {
+    //     if (!dbUser) {
+    //         return res.status(409).json({ message: "email do not exists" });
+    //     } else if (req.body.Email && req.body.Password) {
+    //         // password hash
+    bcrypt.hash(req.body.Password, 10, (err, passwordHash) => {
+        if (err) {
+            return res.status(500).json({ message: "couldnt hash the password" });
+        } else if (passwordHash) {
+            return User.update(({ password: passwordHash }, {
+                where: {
+                    email: req.body.Email
+                }
+            })).then(() => {
+                res.status(200).json({ message: "user password updated" });
+            }).catch(err => {
+                console.log(err);
+                res.status(502).json({ message: "error while updated the user password" });
+            });
+        };
+    });
+    //     } else if (!req.body.Password) {
+    //         return res.status(400).json({ message: "password not provided" });
+    //     } else if (!req.body.Email) {
+    //         return res.status(400).json({ message: "email not provided" });
+    //     };
+    // }).catch(err => {
+    //     console.log('error', err);
+    // });
+
+}
+
+
 const isAuth = (req, res, next) => {
     const authHeader = req.get("Authorization");
     if (!authHeader) {
@@ -96,4 +132,4 @@ const isAuth = (req, res, next) => {
     };
 };
 
-export { signup, login, isAuth };
+export { signup, login, restpassword, isAuth };

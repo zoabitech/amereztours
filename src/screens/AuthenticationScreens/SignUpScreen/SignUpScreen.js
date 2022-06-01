@@ -5,9 +5,7 @@ import CustomButton from '../../../components/CustomButton';
 import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
-// import { onLoggedIn } from '../SignUpScreen/SignInScreen'
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-import SignInScreen from '../SignInScreen'
 
 const API_URL = Platform.OS === 'android' ? 'http://localhost:5000' : 'http://192.168.1.183:3001';
 
@@ -34,27 +32,21 @@ const SignUpScreen = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
-        })
-            .then(async res => {
-                try {
-                    const jsonRes = await res.json();
-                    if (res.status !== 200) {
-                        // setIsError(true);
-                        // setMessage(jsonRes.message);
-                        Alert.alert(jsonRes.message);
-                    } else {
-                        Alert.alert(jsonRes.message);
-                        navigation.navigate("SignIn")
-                        // onLoggedIn(jsonRes.token);
-                        // setMessage(jsonRes.message);
-                    }
-                } catch (err) {
-                    console.log(err);
-                };
-            })
-            .catch(err => {
+        }).then(async res => {
+            try {
+                const jsonRes = await res.json();
+                if (res.status !== 200) {
+                    Alert.alert(jsonRes.message);
+                } else {
+                    Alert.alert(jsonRes.message);
+                    navigation.navigate("SignIn")
+                }
+            } catch (err) {
                 console.log(err);
-            });
+            };
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     const onAlreadyHaveAccountPressed = () => {

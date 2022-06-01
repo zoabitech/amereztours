@@ -18,8 +18,8 @@ const Navigation = (props) => {
                 <Stack.Screen name={"home"} component={BottomTabNavigation} />
                 <Stack.Screen name="SignIn" component={SignInScreen} />
                 <Stack.Screen name="SinUp" component={SignUpScreen} />
-                <Stack.Screen name="Confirm" component={ConfirmEmailScreen} />
-                <Stack.Screen name="ForgetPassword" component={ForgotPasswordScreen} />
+                {/* <Stack.Screen name="Confirm" component={ConfirmEmailScreen} /> */}
+                {/* <Stack.Screen name="ForgetPassword" component={ForgotPasswordScreen} /> */}
                 <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
             </Stack.Navigator>
         </NavigationContainer>

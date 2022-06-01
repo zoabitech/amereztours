@@ -72,7 +72,7 @@ const SignInScreen = () => {
     };
 
     const onForgotPasswordPressed = () => {
-        navigation.navigate('ForgetPassword')
+        navigation.navigate('NewPassword')
     }
     const onDontHaveAnccountPressed = () => {
         navigation.navigate("SinUp")
