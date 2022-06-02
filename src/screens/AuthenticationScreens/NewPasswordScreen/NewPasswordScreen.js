@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
@@ -17,7 +17,7 @@ const NewPasswordScreen = () => {
             Email,
             Password
         };
-        fetch(`http://192.168.1.183:3001/${'restpassword'}`, {
+        fetch(`http://172.16.2.195:3001/${'updatedPassword'}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

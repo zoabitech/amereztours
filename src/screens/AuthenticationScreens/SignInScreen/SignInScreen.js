@@ -15,8 +15,8 @@ const SignInScreen = () => {
     const navigation = useNavigation();
 
 
-    const onLoggedIn = async (token) => {
-        fetch(`http://192.168.1.183:3001/private`, {
+    const onLoggedIn = (token) => {
+        fetch(`http://172.16.2.195:3001/private`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,9 +26,7 @@ const SignInScreen = () => {
             try {
                 const jsonRes = await res.json();
                 if (res.status === 200) {
-                    // setMessage(jsonRes.message);
                     alert(jsonRes.message)
-                    console.log(jsonRes.message)
                     navigation.navigate("home")
                 }
             } catch (err) {
@@ -46,7 +44,7 @@ const SignInScreen = () => {
             Email,
             Password,
         };
-        fetch(`http://192.168.1.183:3001/login`, {
+        fetch(`http://172.16.2.195:3001/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

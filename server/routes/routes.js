@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { signup, login, restpassword, isAuth } from '../controllers/auth.js';
+import { signup, login, updatedPassword, isAuth } from '../controllers/auth.js';
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ router.post('/login', login);
 
 router.post('/signup', signup);
 
-router.post('/restpassword', restpassword);
+router.post('/updatedPassword', updatedPassword);
 
 router.get('/private', isAuth);
 
