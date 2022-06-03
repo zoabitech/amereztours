@@ -17,7 +17,7 @@ const NewPasswordScreen = () => {
             Email,
             Password
         };
-        fetch(`http://172.16.2.195:3001/${'updatedPassword'}`, {
+        fetch(`http://192.168.1.183:3001/${'updatedPassword'}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

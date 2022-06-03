@@ -13,10 +13,11 @@ const SignInScreen = () => {
     const { height } = useWindowDimensions();
     const { control, handleSubmit } = useForm();
     const navigation = useNavigation();
-
+    const [logedIn, setLogedIn] = useState(false);
 
     const onLoggedIn = (token) => {
-        fetch(`http://172.16.2.195:3001/private`, {
+
+        fetch(`http://192.168.1.183:3001/private`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +28,9 @@ const SignInScreen = () => {
                 const jsonRes = await res.json();
                 if (res.status === 200) {
                     alert(jsonRes.message)
-                    navigation.navigate("home")
+                    navigation.navigate("Profile")
+                    setLogedIn();
+                    console.log(token)
                 }
             } catch (err) {
                 console.log(err.message);
@@ -38,13 +41,14 @@ const SignInScreen = () => {
     }
 
     const onSignInPressed = async (data) => {
+
         const { Email, Password } = data;
 
         const payload = {
             Email,
             Password,
         };
-        fetch(`http://172.16.2.195:3001/login`, {
+        fetch(`http://192.168.1.183:3001/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,8 +58,6 @@ const SignInScreen = () => {
             try {
                 const jsonRes = await res.json();
                 if (res.status !== 200) {
-                    // setIsError(true);
-                    // setMessage(jsonRes.message);
                     alert(jsonRes.message);
                 } else {
                     onLoggedIn(jsonRes.token);

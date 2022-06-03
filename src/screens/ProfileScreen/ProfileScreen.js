@@ -1,25 +1,84 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
-// import CustomButton from '../../components/CustomButton'
-// import { useNavigation } from '@react-navigation/native';
-// import { useForm, Controller } from 'react-hook-form';
-// import { useState } from 'react-native';
-import LogedIn from '../../components/LogedIn/LogedIn';
-import LogedOut from '../../components/LogedOut/LogedOut'
-const ProfileScreen = () => {
+import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+import CustomButton from '../../components/CustomButton';
 
-    // const navigation = useNavigation();
-    // const { control, handleSubmit } = useForm();
-    const { login, isLogIn } = useState(false);
+
+const ProfileScreen = ({ setLoggedIn }) => {
+
+    const navigation = useNavigation();
+    const { control, handleSubmit } = useForm();
+    const onLogedOutPressed = () => {
+    }
+
+    const onSignInPressed = () => {
+        navigation.navigate('SignIn')
+    }
+
     return (
         <>
-            {isLogIn ? < LogedIn /> : <LogedOut />
+            {setLoggedIn && <View style={styles.root}>
+                <CustomButton
+                    text="Contact Customer Service"
+                    type='TERTIARY'
+                //onPress={handleSubmit(onSignInPressed)}
+                />
+                <CustomButton
+                    text="Settings"
+                    type='TERTIARY'
+                //onPress={handleSubmit(onSignInPressed)}
+                />
+                <CustomButton
+                    text="Give App Feedback"
+                    type='TERTIARY'
+                //onPress={handleSubmit(onSignInPressed)}
+                />
+                <CustomButton
+                    text="Loguot"
+                    type='TERTIARY'
+                    onPress={handleSubmit(onLogedOutPressed)}
+                />
+            </View>
+            }
+
+            {!setLoggedIn && <View style={styles.root}>
+                <CustomButton
+                    text="Sign in or create account"
+                    type='TERTIARY'
+                    onPress={handleSubmit(onSignInPressed)}
+                />
+                <CustomButton
+                    text="Contact Customer Service"
+                    type='TERTIARY'
+                //onPress={handleSubmit(onSignInPressed)}
+                />
+                <CustomButton
+                    text="Settings"
+                    type='TERTIARY'
+                //onPress={handleSubmit(onSignInPressed)}
+                />
+                <CustomButton
+                    text="Give App Feedback"
+                    type='TERTIARY'
+                //onPress={handleSubmit(onSignInPressed)}
+                />
+            </View>
             }
         </>
     )
 }
 
 const styles = StyleSheet.create({
+    root: {
+        alignItems: 'center',
+        padding: 30,
+    },
+    conta: {
+        width: '100%',
+        height: 200,
+        backgroundColor: '#000'
+    }
 })
 
 export default ProfileScreen;
