@@ -9,8 +9,6 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import TopTabNavigator from './TopTabNavigator';
-import LogedIn from '../components/LogedIn/LogedIn';
-import LogedOut from '../components/LogedOut/LogedOut';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +19,7 @@ const HomeTabNavigation = (props) => {
                 headerShown: false,
                 tabBarActiveTintColor: '#005B99',
                 tabBarInactiveTintColor: 'gray',
-                tabBarStyle: { borderTopWidth: 0.5, borderTopColor: 'gray', fontWeight: '1000' }
+                tabBarStyle: { borderTopWidth: 0.5, borderTopColor: 'gray', fontWeight: '1000', zIndex: 100 }
             }}
         >
             <Tab.Screen
