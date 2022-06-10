@@ -1,7 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import CustomButton from '../CustomButton'
+
 const SocialSignInButtons = () => {
+
     const onSignInwithFacebookPressed = () => {
         console.warn('onSignInwithFacebook');
     }

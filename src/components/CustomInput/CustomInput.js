@@ -2,7 +2,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { Controller } from 'react-hook-form';
 import React from 'react'
 
-const CustomImput = ({ control, name, rules = {}, placeholder, secureTextEntry }) => {
+const CustomImput = ({ control, name, rules = {}, placeholder, secureTextEntry, style }) => {
     return (
 
         <Controller
@@ -13,7 +13,7 @@ const CustomImput = ({ control, name, rules = {}, placeholder, secureTextEntry }
                 <>
                     <View style={[styles.container, {
                         borderColor: error ? 'red' : '#e8e8e8'
-                    }]}>
+                    }, style]}>
                         < TextInput
                             style={styles.input}
                             value={value}
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         paddingHorizontal: 10,
         marginVertical: 5,
+
     },
     input: {
 
