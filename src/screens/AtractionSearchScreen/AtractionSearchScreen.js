@@ -1,5 +1,5 @@
 import { StyleSheet, View, FlatList, Text } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { atractionData } from '../../Data/atractiondata'
 import AtractionPost from '../../components/AtractionPost';
 import CustomDatePicker from '../../components/DatePakier/CustomDatePicker';
@@ -9,22 +9,48 @@ import CustomInput from '../../components/CustomInput/CustomInput';
 import { useForm, Controller } from 'react-hook-form';
 import { StartDateContext } from "../../context/StartDateContext";
 import { EndDateContext } from "../../context/EndDateContext";
+
 const AtractionSearchScreen = () => {
 
     const { control, handleSubmit, watch } = useForm();
     const { startDate } = useContext(StartDateContext);
     const { endDate } = useContext(EndDateContext);
-    const onSearchPressed = () => {
-        console.log(startDate);
-        console.log(endDate);
-    }
+    const [items, setItems] = useState([]);
+    const onSearchPressed = async () => {
+        const payload = {
+            startDate,
+            endDate,
+        };
+        fetch(`http://192.168.1.183:3001/fetchAtractionByDateResults`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        }).then(async res => {
+            try {
+                const jsonRes = await res.json();
+                setItems(JSON.stringify(jsonRes));
+                console.log("items: ", items)
+                if (res.status !== 200) {
+                    alert(jsonRes.message);
+                } else {
+                    // console.log(jsonRes)
+                }
+            } catch (err) {
+                console.log("a", err.message);
+            };
+        }).catch(err => {
+            console.log("b", err.message);
+        });
+    };
     return (
 
         <View style={styles.root}>
             {/* <FlatList
                 data={atractionData}
                 renderItem={({ item }) => <AtractionPost item={item} />
-                }rr
+                } 
             /> */}
             <CustomDatePicker
                 textStyle={{
