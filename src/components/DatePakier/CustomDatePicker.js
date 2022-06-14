@@ -37,7 +37,7 @@ const CustomDatePicker = (props) => {
                 value={new Date(startDate)}
                 mode="date"
                 minimumDate={new Date(moment().subtract(120, 'years').format('YYYY-MM-DD'))}
-                maximumDate={new Date(moment().format('YYYY-MM-DD'))}
+                maximumDate={new Date(moment().subtract(-20, 'years').format('YYYY-MM-DD'))}
                 onChange={Platform.OS === 'ios' ? onChange : onAndroidChangeEvent}
             />
         )

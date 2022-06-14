@@ -1,8 +1,7 @@
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import Attraction from '../models/attraction.js';
-// const fs = require('fs');
 
-const fetchAtractionByDateResults = (req, res, next) => {
+const fetchAtractionByDateResults = async (req, res, next) => {
     // checks if email exists
     const attractions = Attraction.findAll({
         from: {
@@ -14,8 +13,8 @@ const fetchAtractionByDateResults = (req, res, next) => {
         } else {
             // password hash
             if (dbAtraction) {
-                // res.status(200).json({ message: "user logged in", "token": dbAtraction });
-                res.send(attractions)
+                res.status(200).json({ dbAtraction });
+                // res.send(attractions)
             } else { // password doesnt match
                 res.status(401).json({ message: "invalid credentials" });
             };

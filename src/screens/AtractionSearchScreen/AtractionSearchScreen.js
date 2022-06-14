@@ -16,12 +16,13 @@ const AtractionSearchScreen = () => {
     const { startDate } = useContext(StartDateContext);
     const { endDate } = useContext(EndDateContext);
     const [items, setItems] = useState([]);
+
     const onSearchPressed = async () => {
         const payload = {
             startDate,
             endDate,
         };
-        fetch(`http://192.168.1.183:3001/fetchAtractionByDateResults`, {
+        fetch(`http://192.168.43.90:3001/fetchAtractionByDateResults`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,12 +31,15 @@ const AtractionSearchScreen = () => {
         }).then(async res => {
             try {
                 const jsonRes = await res.json();
-                setItems(JSON.stringify(jsonRes));
+                // console.log("json", jsonRes)
                 console.log("items: ", items)
                 if (res.status !== 200) {
                     alert(jsonRes.message);
                 } else {
-                    // console.log(jsonRes)
+                    setTimeout(() => {
+                        setItems(JSON.stringify(jsonRes));
+                    }, 1000);
+
                 }
             } catch (err) {
                 console.log("a", err.message);
@@ -47,11 +51,6 @@ const AtractionSearchScreen = () => {
     return (
 
         <View style={styles.root}>
-            {/* <FlatList
-                data={atractionData}
-                renderItem={({ item }) => <AtractionPost item={item} />
-                } 
-            /> */}
             <CustomDatePicker
                 textStyle={{
                     paddingVertical: 15,
@@ -60,7 +59,7 @@ const AtractionSearchScreen = () => {
                     borderWidth: 2,
                     marginTop: 15,
                     marginBottom: 0,
-                    margin: 10
+                    margin: 10,
                 }}
             />
             <EndCustomDatePicker
@@ -96,6 +95,13 @@ const AtractionSearchScreen = () => {
                 fgColor="rgb(193,202,202)"
                 onPress={handleSubmit(onSearchPressed)}
             />
+            {/* {items !== [] &&
+                <FlatList
+                    data={items}
+                    renderItem={({ item }) => <AtractionPost item={item} />
+                    }
+                />
+            } */}
         </View>
     )
 }
