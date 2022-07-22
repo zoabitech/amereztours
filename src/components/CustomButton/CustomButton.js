@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 
-const CustomButton = ({ onPress, text, type = "PRIMARY", bgColor, fgColor }) => {
+const CustomButton = ({ onPress, text, type = "PRIMARY", bgColor, fgColor, loading }) => {
     return (
         <Pressable
             onPress={onPress}
+            disabled={loading ? loading : loading}
             style={[styles.container,
             styles[`container_${type}`],
             bgColor ? { backgroundColor: bgColor } : {}

@@ -1,21 +1,23 @@
 // import jwt from 'jsonwebtoken';
 import Attraction from '../models/attraction.js';
-
 const fetchAtractionByDateResults = async (req, res, next) => {
-    // checks if email exists
-    const attractions = Attraction.findAll({
-        from: {
-            $between: [req.body.startDate, req.body.endDate]
+    // checks if there any attraction in the spec date and return to the front end
+    const attractions = await Attraction.findAll({
+        where: {
+            // $bettwen: [{ start_Date: req.body.startDate }, { end_Date: req.body.endDate }]
+            start_Date: req.body.startDate,
+            end_Date: req.body.endDate
         }
-    }).then(dbAtraction => {
-        if (!dbAtraction) {
-            return res.status(404).json({ message: "Sorry othing is in this date!" });
+    }).then(dbAttraction => {
+        //check if there not any data match the asking dates
+        if (!dbAttraction) {
+            return res.status(404).json({ message: "Sorry nothing is in this date!" });
         } else {
-            // password hash
-            if (dbAtraction) {
-                res.status(200).json({ dbAtraction });
-                // res.send(attractions)
-            } else { // password doesnt match
+            // if there data match the asking dates return the data as json 
+            if (dbAttraction) {
+                return res.status(200).json({ dbAttraction });
+                // res.send(dbAttraction)
+            } else {
                 res.status(401).json({ message: "invalid credentials" });
             };
         };

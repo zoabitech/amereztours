@@ -1,28 +1,32 @@
-import { StyleSheet, View, FlatList, Text } from 'react-native'
+import { StyleSheet, View, FlatList, ScrollView } from 'react-native'
 import React, { useContext, useState } from 'react'
-import { atractionData } from '../../Data/atractiondata'
 import AtractionPost from '../../components/AtractionPost';
 import CustomDatePicker from '../../components/DatePakier/CustomDatePicker';
 import EndCustomDatePicker from '../../components/DatePakier/EndCustomDatePicker';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput/CustomInput';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { StartDateContext } from "../../context/StartDateContext";
 import { EndDateContext } from "../../context/EndDateContext";
+// import DatePiker from '../../components/DatePakierCon/DatePiker';
+// import AttractionIfoPost from '../../components/AttractionInfoPost/AttractionInfoPost';
 
 const AtractionSearchScreen = () => {
 
     const { control, handleSubmit, watch } = useForm();
     const { startDate } = useContext(StartDateContext);
     const { endDate } = useContext(EndDateContext);
-    const [items, setItems] = useState([]);
+    const [data, setData] = useState([]);
+    const [loading, setLodaing] = useState(false);
+
 
     const onSearchPressed = async () => {
+        // on search function that get all the atraction acording the start date and end date using fetch
         const payload = {
             startDate,
             endDate,
         };
-        fetch(`http://192.168.43.90:3001/fetchAtractionByDateResults`, {
+        fetch(`http://192.168.1.183:3001/fetchAtractionByDateResults`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,26 +34,25 @@ const AtractionSearchScreen = () => {
             body: JSON.stringify(payload),
         }).then(async res => {
             try {
+                setLodaing(true);
                 const jsonRes = await res.json();
-                // console.log("json", jsonRes)
-                console.log("items: ", items)
                 if (res.status !== 200) {
                     alert(jsonRes.message);
                 } else {
-                    setTimeout(() => {
-                        setItems(JSON.stringify(jsonRes));
-                    }, 1000);
-
+                    setData(jsonRes)
+                    console.log(data)
                 }
             } catch (err) {
                 console.log("a", err.message);
             };
+            setTimeout(() => {
+                setLodaing(false);
+            }, 5000)
         }).catch(err => {
             console.log("b", err.message);
         });
     };
     return (
-
         <View style={styles.root}>
             <CustomDatePicker
                 textStyle={{
@@ -87,22 +90,39 @@ const AtractionSearchScreen = () => {
                     marginTop: 0
                 }}
             />
-
             <CustomButton
-                text="Search"
+                text={(loading) ? 'Loading...' : 'Search'}
                 type='TERTIARY'
+                loading={loading}
                 bgColor="rgb(251, 78, 41)"
                 fgColor="rgb(193,202,202)"
                 onPress={handleSubmit(onSearchPressed)}
             />
-            {/* {items !== [] &&
-                <FlatList
-                    data={items}
+            {data.length > 0 &&
+                < FlatList
+                    data={data}
                     renderItem={({ item }) => <AtractionPost item={item} />
                     }
                 />
-            } */}
+            }
+            {/* <AttractionIfoPost
+
+                item={atractionData[1]}
+
+            /> */}
         </View>
+        // <>
+        //     <DatePiker
+        //         control={control}
+        //     />
+        //     <CustomButton
+        //         text={(loading) ? 'Loading...' : 'Search'}
+        //         type='TERTIARY'
+        //         bgColor="rgb(251, 78, 41)"
+        //         fgColor="rgb(193,202,202)"
+        //         onPress={handleSubmit(onSearchPressed)}
+        //     />
+        // </>
     )
 }
 

@@ -37,11 +37,11 @@ const Attraction = sequelize.define('attractions', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    start_date: {
+    start_Date: {
         type: Sequelize.DATEONLY,
         allowNull: false,
     },
-    end_date: {
+    end_Date: {
         type: Sequelize.DATEONLY,
         allowNull: false,
     }

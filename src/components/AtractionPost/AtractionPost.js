@@ -1,4 +1,4 @@
-import { Text, View, Image } from 'react-native'
+import { Text, View, Image, Button } from 'react-native'
 import React, { useState } from 'react'
 import { carData } from '../../Data/cardata';
 import { AtractionData } from '../../Data/atractiondata';
@@ -48,7 +48,7 @@ const CarPost = (props) => {
                         name="description"
                         size={12}
                     />
-                    {item.desc}
+                    {item.description}
                 </Text>
                 <View style={styles.ratingContainer}>
                     {[0, 0, 0, 0, 0].map((el, i) =>
