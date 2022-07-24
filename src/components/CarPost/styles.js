@@ -4,6 +4,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         margin: 4,
         backgroundColor: 'white',
+        borderRadius: 10,
+        borderColor: "#000",
+        elevation: 4,
     },
     rootimage: {
         flex: 1.5,
@@ -49,11 +52,6 @@ const styles = StyleSheet.create({
         margin: 2,
         marginVertical: 7,
     },
-    shadowProp: {
-        borderWidth: 0.1,
-        borderColor: "#000",
-        elevation: 4,
-    }
 })
 
 export default styles;

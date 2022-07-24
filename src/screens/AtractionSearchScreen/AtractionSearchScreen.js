@@ -1,5 +1,5 @@
 import { StyleSheet, View, FlatList, ScrollView } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AtractionPost from '../../components/AtractionPost';
 import CustomDatePicker from '../../components/DatePakier/CustomDatePicker';
 import EndCustomDatePicker from '../../components/DatePakier/EndCustomDatePicker';
@@ -9,49 +9,96 @@ import { useForm } from 'react-hook-form';
 import { StartDateContext } from "../../context/StartDateContext";
 import { EndDateContext } from "../../context/EndDateContext";
 // import DatePiker from '../../components/DatePakierCon/DatePiker';
-// import AttractionIfoPost from '../../components/AttractionInfoPost/AttractionInfoPost';
-
+import AttractionIfoPost from '../../components/AttractionInfoPost/AttractionInfoPost';
+import { atractionData } from '../../Data/atractiondata'
 const AtractionSearchScreen = () => {
 
     const { control, handleSubmit, watch } = useForm();
     const { startDate } = useContext(StartDateContext);
     const { endDate } = useContext(EndDateContext);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
     const [loading, setLodaing] = useState(false);
 
 
-    const onSearchPressed = async () => {
-        // on search function that get all the atraction acording the start date and end date using fetch
-        const payload = {
-            startDate,
-            endDate,
-        };
-        fetch(`http://192.168.1.183:3001/fetchAtractionByDateResults`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        }).then(async res => {
-            try {
-                setLodaing(true);
-                const jsonRes = await res.json();
-                if (res.status !== 200) {
-                    alert(jsonRes.message);
-                } else {
-                    setData(jsonRes)
-                    console.log(data)
-                }
-            } catch (err) {
-                console.log("a", err.message);
-            };
-            setTimeout(() => {
-                setLodaing(false);
-            }, 5000)
-        }).catch(err => {
-            console.log("b", err.message);
-        });
-    };
+    useEffect(() => {
+        async function onSearchPressed() {
+
+            if (loading) {
+                const payload = {
+                    startDate,
+                    endDate,
+                };
+                fetch(`http://192.168.1.183:3001/fetchAtractionByDateResults`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                }).then(async res => {
+                    try {
+                        const jsonRes = await res.json();
+                        if (res.status !== 200) {
+                            alert(jsonRes.message);
+                        } else {
+                            setData(jsonRes)
+                            console.log("json contains :", jsonRes)
+                            console.log("data contains: ", data)
+                        }
+                    } catch (err) {
+                        console.log("a", err.message);
+                    }
+
+                }).catch(err => {
+                    console.log("b", err.message);
+                });
+            }
+        }
+        onSearchPressed()
+
+        return () => {
+            setLodaing(false)
+        }
+    }, [loading])
+
+
+    const setIsLoding = () => {
+        setLodaing(true)
+    }
+    // const onSearchPressed = async () => {
+    //     // on search function that get all the atraction acording the start date and end date using fetch
+    //     const payload = {
+    //         startDate,
+    //         endDate,
+    //     };
+    //     fetch(`http://192.168.1.183:3001/fetchAtractionByDateResults`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(payload),
+    //     }).then(async res => {
+    //         try {
+    //             setLodaing(true);
+    //             const jsonRes = await res.json();
+    //             if (res.status !== 200) {
+    //                 alert(jsonRes.message);
+    //             } else {
+    //                 updateState(jsonRes)
+    //                 console.log("json contains :", jsonRes)
+    //                 console.log("data contains: ", data)
+    //             }
+    //         } catch (err) {
+    //             console.log("a", err.message);
+    //         } finally {
+    //             setTimeout(() => {
+    //                 setLodaing(false);
+    //             }, 5000)
+    //         }
+
+    //     }).catch(err => {
+    //         console.log("b", err.message);
+    //     });
+    // };
     return (
         <View style={styles.root}>
             <CustomDatePicker
@@ -96,17 +143,18 @@ const AtractionSearchScreen = () => {
                 loading={loading}
                 bgColor="rgb(251, 78, 41)"
                 fgColor="rgb(193,202,202)"
-                onPress={handleSubmit(onSearchPressed)}
+                onPress={handleSubmit(setIsLoding)}
             />
-            {data.length > 0 &&
+            {data !== null &&
                 < FlatList
+                    scrollEnabled
                     data={data}
                     renderItem={({ item }) => <AtractionPost item={item} />
                     }
                 />
             }
-            {/* <AttractionIfoPost
 
+            {/* <AttractionIfoPost
                 item={atractionData[1]}
 
             /> */}

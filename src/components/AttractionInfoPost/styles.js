@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     root: {
-        flexDirection: 'column',
+        // flexDirection: 'row',
         margin: 4,
         backgroundColor: 'white',
         height: '100%',
-        padding: 10
+        padding: 1,
     },
     title: {
         fontSize: 18,
@@ -16,15 +16,13 @@ const styles = StyleSheet.create({
         flex: 1.5,
         height: 500,
         resizeMode: 'contain',
-        margin: 2
+        margin: 2,
+        borderRadius: 10
     },
-    // rootimage: {
-    //     flex: 1,
-    //     // height: 150,
-    //     // resizeMode: 'contain',
-    //     // marginTop: 20,
-    //     // marginHorizontal: 10,
-    // },
+    rootimage: {
+        resizeMode: 'contain',
+        margin: 1,
+    },
     plcaes: {
         margin: 3,
         color: '#000'
@@ -38,7 +36,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '900',
         color: '#9A0000',
-        // alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+        margin: 5
     },
     desc: {
         padding: 3

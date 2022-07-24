@@ -15,7 +15,7 @@ const fetchAtractionByDateResults = async (req, res, next) => {
         } else {
             // if there data match the asking dates return the data as json 
             if (dbAttraction) {
-                return res.status(200).json({ dbAttraction });
+                return res.status(200).json(dbAttraction);
                 // res.send(dbAttraction)
             } else {
                 res.status(401).json({ message: "invalid credentials" });
