@@ -9,6 +9,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import TopTabNavigator from './TopTabNavigator';
+import AttractionIfoPost from '../components/AttractionInfoPost/AttractionInfoPost';
 
 const Tab = createBottomTabNavigator();
 

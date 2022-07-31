@@ -1,17 +1,27 @@
-import { Text, View, Image, Button } from 'react-native'
+import { Text, View, Image, Button, Pressable } from 'react-native'
 import React, { useState } from 'react'
-import { carData } from '../../Data/cardata';
-import { AtractionData } from '../../Data/atractiondata';
+// import { carData } from '../../Data/cardata';
+// import { AtractionData } from '../../Data/atractiondata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-const CarPost = (props) => {
+import { useNavigation } from '@react-navigation/native';
+
+const AtrractionPost = (props) => {
     const [liked, setLiked] = useState(false);
     const { item } = props;
+
+    // const images = item.images.map(a => a.link)//array of the images of the item.images
+
+    const navigation = useNavigation();
+    const goToAttractionPostPageInfo = () => {
+        //function that navigate to the spicifc attraction
+        navigation.navigate("PostInfo", { PostId: item.id })
+    }
     return (
-        <View style={[styles.root, styles.shadowProp]}>
+        <Pressable onPress={goToAttractionPostPageInfo} style={[styles.root, styles.shadowProp]}>
             <View style={styles.leftContainer}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text
@@ -73,13 +83,13 @@ const CarPost = (props) => {
                     <Text style={styles.price}>$ {item.price}</Text>
                 </View>
             </View>
-            <Image
-                source={{ uri: item.image }}
+            {/* <Image
+                source={{ uri: images[0] }}
                 style={styles.image}
-            />
-        </View>
+            /> */}
+        </Pressable>
     )
 }
 
-export default CarPost;
+export default AtrractionPost;
 

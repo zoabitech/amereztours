@@ -1,8 +1,8 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'Sequelize';
 
 import sequelize from '../utils/database.js';
-
-const Attraction = sequelize.define('attractions', {
+import Image from '../models/image.js'
+const attraction = sequelize.define('attractions', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -33,10 +33,6 @@ const Attraction = sequelize.define('attractions', {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    images: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
     start_Date: {
         type: Sequelize.DATEONLY,
         allowNull: false,
@@ -44,7 +40,16 @@ const Attraction = sequelize.define('attractions', {
     end_Date: {
         type: Sequelize.DATEONLY,
         allowNull: false,
-    }
+    },
+}, {
+    timestamps: false
 });
 
-export default Attraction;
+export default attraction;
+
+attraction.hasMany(Image, { as: "images" })
+
+Image.belongsTo(attraction, {
+    foreignKey: "attractionId",
+    as: "attraction"
+})

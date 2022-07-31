@@ -1,5 +1,6 @@
 // import jwt from 'jsonwebtoken';
 import Attraction from '../models/attraction.js';
+import Image from '../models/image.js'
 const fetchAtractionByDateResults = async (req, res, next) => {
     // checks if there any attraction in the spec date and return to the front end
     const attractions = await Attraction.findAll({
@@ -7,7 +8,8 @@ const fetchAtractionByDateResults = async (req, res, next) => {
             // $bettwen: [{ start_Date: req.body.startDate }, { end_Date: req.body.endDate }]
             start_Date: req.body.startDate,
             end_Date: req.body.endDate
-        }
+        },
+        include: [{ model: Image, as: 'images' }]
     }).then(dbAttraction => {
         //check if there not any data match the asking dates
         if (!dbAttraction) {

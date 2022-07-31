@@ -1,29 +1,26 @@
-import { Text, View, Image, Pressable } from 'react-native'
+import { Text, View, Image, ScrollView, Dimensions, FlatList, StatusBar, Scrollable } from 'react-native'
 import React, { useState } from 'react'
-import { carData } from '../../Data/cardata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
-
-const CarPost = (props) => {
-    const [liked, setLiked] = useState(false);
+import Carousel from '../Carousel';
+import CustomButton from '../CustomButton'
+const CarIfoPost = (props) => {
+    // const [liked, setLiked] = useState(false);
     const { item } = props;
+    const { width, height } = Dimensions.get('screen');
+    // const images = item.images.map((a, index) => a.link)
 
-    // const images = item.images.map(a => a.link)//array of the images of the item.images
-    const navigation = useNavigation();
-
-    const goToAttractionPostPageInfo = () => {
-        //function that navigate to the spicifc attraction
-        navigation.navigate("PostInfo", { PostId: item.id })
-    }
-
-
+    const imageW = width * 0.7;
+    const imageH = imageW * 1.54;
     return (
-        <Pressable onPress={goToAttractionPostPageInfo}>
+        <ScrollView style={[styles.root, styles.shadowProp]}>
+            <Carousel
+                data={item.image}
+            />
             <View style={[styles.root, styles.shadowProp]}>
                 <View style={styles.rightContainer}>
                     <Text style={styles.title}>{item.title}</Text>
@@ -94,14 +91,6 @@ const CarPost = (props) => {
                     <Text style={styles.price}>$ {item.price}</Text>
                 </View>
                 <View style={styles.rootimage}>
-                    <FontAwesome
-                        name={liked ? "heart" : "heart-o"}
-                        size={20}
-                        style={styles.like}
-                        color={"red"}
-                        onPress={() =>
-                            setLiked(!liked)
-                        } />
                     <Image
                         source={{ uri: item.image }}
                         style={styles.image}
@@ -110,11 +99,11 @@ const CarPost = (props) => {
                 </View>
             </View>
 
-        </Pressable>
+        </ScrollView >
     )
 }
 
-export default CarPost;
+export default CarIfoPost;
 
 
 /*<FontAwesome
