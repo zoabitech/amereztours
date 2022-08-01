@@ -1,4 +1,3 @@
-// import { View, Text, color, StyleSheet } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OrderScreen from '../screens/OrdersScreen';
@@ -9,7 +8,6 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import TopTabNavigator from './TopTabNavigator';
-import AttractionIfoPost from '../components/AttractionInfoPost/AttractionInfoPost';
 
 const Tab = createBottomTabNavigator();
 

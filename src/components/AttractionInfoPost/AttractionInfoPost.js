@@ -11,12 +11,8 @@ import CustomButton from '../CustomButton'
 const AttractionIfoPost = (props) => {
     // const [liked, setLiked] = useState(false);
     const { item } = props;
-    const { width, height } = Dimensions.get('screen');
-
     const images = item.images.map((a, index) => a.link)
 
-    const imageW = width * 0.7;
-    const imageH = imageW * 1.54;
     return (
         <ScrollView style={[styles.root, styles.shadowProp]}>
             <Carousel

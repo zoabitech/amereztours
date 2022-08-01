@@ -9,6 +9,7 @@ import { UserContext } from "./src/context/UserContext";
 import { StartDateContext } from './src/context/StartDateContext';
 import { EndDateContext } from './src/context/EndDateContext';
 import { DataContext } from './src/context/DataContext';
+import { CarDataContext } from './src/context/CarDataContext';
 const App = () => {
   //setting the user to null at the first run of the app
   const [user, setUser] = useState(null);
@@ -23,17 +24,22 @@ const App = () => {
   const [data, setData] = useState(null)
   const dataValue = useMemo(() => ({ data, setData }), [data, setData])
 
+  const [carData, setCarData] = useState(null);
+  const carDataValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData])
+
   return (
     <SafeAreaView style={styles.root}>
-      <DataContext.Provider value={dataValue}>
-        <StartDateContext.Provider value={startDateValue}>
-          <EndDateContext.Provider value={endDateValue}>
-            <UserContext.Provider value={value}>
-              <Navigation />
-            </UserContext.Provider>
-          </EndDateContext.Provider>
-        </StartDateContext.Provider>
-      </DataContext.Provider>
+      <CarDataContext.Provider value={carDataValue}>
+        <DataContext.Provider value={dataValue}>
+          <StartDateContext.Provider value={startDateValue}>
+            <EndDateContext.Provider value={endDateValue}>
+              <UserContext.Provider value={value}>
+                <Navigation />
+              </UserContext.Provider>
+            </EndDateContext.Provider>
+          </StartDateContext.Provider>
+        </DataContext.Provider>
+      </CarDataContext.Provider>
     </SafeAreaView >
 
   );

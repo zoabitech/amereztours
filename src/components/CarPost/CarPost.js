@@ -13,12 +13,12 @@ const CarPost = (props) => {
     const [liked, setLiked] = useState(false);
     const { item } = props;
 
-    // const images = item.images.map(a => a.link)//array of the images of the item.images
+    const images = item.images.map(a => a.link)//array of the images of the item.images
     const navigation = useNavigation();
 
     const goToAttractionPostPageInfo = () => {
-        //function that navigate to the spicifc attraction
-        navigation.navigate("PostInfo", { PostId: item.id })
+        //function that navigate to the spicifc vehicle
+        navigation.navigate("CarInfoPost", { CarPostId: item.id })
     }
 
 
@@ -103,7 +103,7 @@ const CarPost = (props) => {
                             setLiked(!liked)
                         } />
                     <Image
-                        source={{ uri: item.image }}
+                        source={{ uri: images[0] }}
                         style={styles.image}
                     />
 

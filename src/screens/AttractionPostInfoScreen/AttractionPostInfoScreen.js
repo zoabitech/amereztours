@@ -3,9 +3,8 @@ import React, { useContext } from 'react'
 import { useRoute } from '@react-navigation/native';
 import AttractionInfoPost from '../../components/AttractionInfoPost/AttractionInfoPost';
 import { DataContext } from '../../context/DataContext';
-import CarIfoPost from '../../components/CarInfoPost/CarInfoPost';
 
-const PostInfoScreen = (props) => {
+const AttractionPostInfoScreen = (props) => {
 
     const { data } = useContext(DataContext)
     //route hook to get the spicifice post to route into
@@ -14,17 +13,14 @@ const PostInfoScreen = (props) => {
 
     return (
         <View style={styles.root}>
-            {/* <AttractionInfoPost
-                item={post}
-            /> */}
-            <CarIfoPost
+            <AttractionInfoPost
                 item={post}
             />
         </View>
     )
 }
 
-export default PostInfoScreen;
+export default AttractionPostInfoScreen;
 
 const styles = StyleSheet.create({
     root: {

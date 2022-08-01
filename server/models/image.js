@@ -13,7 +13,11 @@ const Image = sequelize.define('images', {
         type: Sequelize.INTEGER
     },
     attractionId: {
-        allowNull: false,
+        allowNull: true,
+        type: Sequelize.INTEGER
+    },
+    vehicleId: {
+        allowNull: true,
         type: Sequelize.INTEGER
     }
 }, {

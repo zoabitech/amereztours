@@ -7,7 +7,8 @@ import SignInScreen from '../screens/AuthenticationScreens/SignInScreen';
 import SignUpScreen from '../screens/AuthenticationScreens/SignUpScreen';
 import NewPasswordScreen from '../screens/AuthenticationScreens/NewPasswordScreen';
 import BottomTabNavigation from './HomeTabNavigation';
-import PostInfoScreen from '../screens/PostInfoScreen/PostInfoScreen';
+import AttractionPostInfoScreen from '../screens/AttractionPostInfoScreen/AttractionPostInfoScreen';
+import CarPostInfoScreen from '../screens/CarPostInfoScreen/CarPostInfoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,8 @@ const Navigation = (props) => {
                 {/* <Stack.Screen name="Confirm" component={ConfirmEmailScreen} /> */}
                 {/* <Stack.Screen name="ForgetPassword" component={ForgotPasswordScreen} /> */}
                 <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
-                <Stack.Screen name="PostInfo" component={PostInfoScreen} />
+                <Stack.Screen name="PostInfo" component={AttractionPostInfoScreen} />
+                <Stack.Screen name="CarInfoPost" component={CarPostInfoScreen} />
             </Stack.Navigator>
         </NavigationContainer>
 
