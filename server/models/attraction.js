@@ -25,11 +25,7 @@ const attraction = sequelize.define('attractions', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    gusts: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    avg_rating: {
+    guests: {
         type: Sequelize.INTEGER,
         allowNull: false,
     },

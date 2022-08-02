@@ -1,4 +1,4 @@
-// import jwt from 'jsonwebtoken';
+
 import Vehicle from '../models/vehicle.js'
 import Image from '../models/image.js'
 const fetchVehicleByDateResults = async (req, res, next) => {
@@ -6,8 +6,7 @@ const fetchVehicleByDateResults = async (req, res, next) => {
     const Vehicles = await Vehicle.findAll({
         where: {
             // $bettwen: [{ start_Date: req.body.startDate }, { end_Date: req.body.endDate }]
-            start_Date: req.body.startDate,
-            end_Date: req.body.endDate
+            available: req.body.available
         },
         include: [{ model: Image, as: 'images' }]
     }).then(dbVehicle => {

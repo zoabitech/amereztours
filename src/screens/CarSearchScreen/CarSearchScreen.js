@@ -21,10 +21,9 @@ const CarSearchScreen = () => {
     const onSearchPressed = () => {
         // on search function that get all the cars acording the start date and end date and amount of gusets using fetch
         const payload = {
-            startDate,
-            endDate,
+            available: 1
         };
-        fetch(`http://192.168.1.183:3001/fetchVehicleByDateResults`, {
+        fetch(`http://172.16.0.50:3306/fetchVehicleByDateResults`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -13,14 +13,14 @@ const User = sequelize.define('users', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    last_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     phone: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
-    },
-    last_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
     },
     username: {
         type: Sequelize.STRING,

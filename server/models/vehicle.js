@@ -25,23 +25,15 @@ const vehicle = sequelize.define('vehicles', {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    avg_rating: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    start_Date: {
-        type: Sequelize.DATEONLY,
-        allowNull: false,
-    },
-    end_Date: {
-        type: Sequelize.DATEONLY,
-        allowNull: false,
-    },
     available: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
     driver: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    quantity: {
         type: Sequelize.INTEGER,
         allowNull: false
     }

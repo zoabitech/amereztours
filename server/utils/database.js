@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('amereztours', 'root', '', {
+const sequelize = new Sequelize('user4617DB', 'user4617DB_user', '12345678', {
     dialect: 'mariadb',
-    host: 'localhost',
+    host: 'petacil.org',
 });
 
 // try {

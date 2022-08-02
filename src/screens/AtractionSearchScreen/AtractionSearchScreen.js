@@ -24,7 +24,7 @@ const AtractionSearchScreen = () => {
             startDate,
             endDate,
         };
-        fetch(`http://192.168.1.183:3001/fetchAtractionByDateResults`, {
+        fetch(`http://172.16.0.50:3306/fetchAtractionByDateResults`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

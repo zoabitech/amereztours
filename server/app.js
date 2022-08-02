@@ -20,4 +20,4 @@ app.use(router);
 
 sequelize.sync();
 
-app.listen(3001);
+app.listen(3306);
