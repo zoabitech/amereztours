@@ -45,6 +45,8 @@ const User = sequelize.define('users', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+}, {
+    timestamps: false
 });
 
 export default User;

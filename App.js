@@ -21,7 +21,7 @@ const App = () => {
   const [endDate, setEndDate] = useState(moment(endDate));
   const endDateValue = useMemo(() => ({ endDate, setEndDate }), [endDate, setEndDate]);
 
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(undefined)
   const dataValue = useMemo(() => ({ data, setData }), [data, setData])
 
   const [carData, setCarData] = useState(null);

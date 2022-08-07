@@ -24,7 +24,7 @@ const AtractionSearchScreen = () => {
             startDate,
             endDate,
         };
-        fetch(`http://172.16.0.50:3306/fetchAtractionByDateResults`, {
+        fetch(`http://192.168.1.22:3001/fetchAtractionByDateResults`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const AtractionSearchScreen = () => {
                 fgColor="rgb(193,202,202)"
                 onPress={handleSubmit(onSearchPressed)}
             />
-            {data?.length > 0 &&
+            {data !== undefined &&
                 < FlatList
                     scrollEnabled
                     data={data}

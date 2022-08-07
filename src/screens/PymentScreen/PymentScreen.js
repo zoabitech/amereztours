@@ -1,104 +1,38 @@
-import { Text, View, ScrollView, TouchableOpacity, Modal, ActivityIndicator } from 'react-native'
-import React, { useState, useContext } from 'react'
-import styles from './styles';
-import Feather from 'react-native-vector-icons/Feather';
-import Carousel from '../Carousel';
-import { UserContext } from '../../context/UserContext';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import {
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    Modal,
+    ActivityIndicator,
+} from 'react-native';
 import { WebView } from 'react-native-webview';
-import { StartDateContext } from "../../context/StartDateContext";
-import { EndDateContext } from "../../context/EndDateContext";
-const AttractionIfoPost = (props) => {
-    const { item } = props;
-    const images = item.images.map((a, index) => a.link)
-    const { user } = useContext(UserContext);
-    const { startDate } = useContext(StartDateContext);
-    const { endDate } = useContext(EndDateContext);
-    const navigation = useNavigation();
+import Feather from 'react-native-vector-icons/Feather';
 
+const PymentScreen = () => {
     const [showGateway, setShowGateway] = useState(false);
     const [prog, setProg] = useState(false);
     const [progClr, setProgClr] = useState('#000');
-
     function onMessage(e) {
         let data = e.nativeEvent.data;
         setShowGateway(false);
-
+        console.log(data);
         let payment = JSON.parse(data);
         if (payment.status === 'COMPLETED') {
             alert('PAYMENT MADE SUCCESSFULLY!');
-            addOrderAfterPaymentSuccessfully()
         } else {
             alert('PAYMENT FAILED. PLEASE TRY AGAIN.');
         }
-
     }
-
-    // function _createOrder(data, actions) {
-    //     return actions.order.create({
-    //         purchase_units: [
-    //             {
-    //                 amount: {
-    //                     value: "10",
-    //                 },
-    //             },
-    //         ],
-    //     });
-    // }
-
-    // async function _onApprove(data, actions) {
-    //     let order = await actions.order.capture();
-    //     console.log(order);
-    //     window.ReactNativeWebView &&
-    //         window.ReactNativeWebView.postMessage(JSON.stringify(order));
-    //     return order;
-    // }
-
-    const addOrderAfterPaymentSuccessfully = () => {
-
-        const payload = {
-            attractionId: item.id,
-            id: user.id,
-            startDate,
-            endDate,
-            status: "New",
-        };
-        fetch(`http://192.168.1.22:3001/addOrder`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        }).then(async res => {
-            try {
-                const jsonRes = await res.json();
-                if (res.status !== 200) {
-                    alert(jsonRes.message);
-                } else {
-                    console.log("jsonRes", JSON.stringify(jsonRes, null, 4))
-                }
-            } catch (err) {
-                console.log("a", err.message);
-            }
-        }).catch(err => {
-            console.log("b", err.message);
-        });
-    }
-
-
     return (
-        <ScrollView style={[styles.root, styles.shadowProp]}>
-            <Carousel
-                data={images}
-            />
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.desc}>{item.description}</Text>
-            <Text style={styles.price}>$ {item.price}</Text>
+        <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
                 <View style={styles.btnCon}>
                     <TouchableOpacity
                         style={styles.btn}
-                        onPress={() => user === null ? alert("YOU NEED TO BE SGIN IN TO COMPLETE THE BOOKING") : setShowGateway(true)}>
+                        onPress={() => setShowGateway(true)}>
                         <Text style={styles.btnTxt}>Pay Using PayPal</Text>
                     </TouchableOpacity>
                 </View>
@@ -110,7 +44,6 @@ const AttractionIfoPost = (props) => {
                     onRequestClose={() => setShowGateway(false)}
                     animationType={'fade'}
                     transparent>
-
                     <View style={styles.webViewCon}>
                         <View style={styles.wbHead}>
                             <TouchableOpacity
@@ -150,13 +83,49 @@ const AttractionIfoPost = (props) => {
                                 setProg(false);
                             }}
                             onMessage={onMessage}
-                            createOrder={() => _createOrder()}
                         />
                     </View>
                 </Modal>
             ) : null}
-        </ScrollView >
-    )
-}
-
-export default AttractionIfoPost;
+        </SafeAreaView>
+    );
+};
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+    },
+    btnCon: {
+        height: 45,
+        width: '70%',
+        elevation: 1,
+        backgroundColor: '#00457C',
+        borderRadius: 3,
+    },
+    btn: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    btnTxt: {
+        color: '#fff',
+        fontSize: 18,
+    },
+    webViewCon: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    wbHead: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#f9f9f9',
+        zIndex: 25,
+        elevation: 2,
+    },
+});
+export default PymentScreen;

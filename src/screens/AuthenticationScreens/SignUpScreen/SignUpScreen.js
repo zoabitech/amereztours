@@ -26,7 +26,7 @@ const SignUpScreen = () => {
             Email,
             Password
         };
-        fetch(`http://192.168.1.183:3001/${'signup'}`, {
+        fetch(`http://192.168.1.22:3001/${'signup'}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

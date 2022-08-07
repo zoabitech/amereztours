@@ -23,7 +23,7 @@ const CarSearchScreen = () => {
         const payload = {
             available: 1
         };
-        fetch(`http://172.16.0.50:3306/fetchVehicleByDateResults`, {
+        fetch(`http://192.168.1.22:3001/fetchVehicleByDateResults`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

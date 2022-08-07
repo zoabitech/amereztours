@@ -21,10 +21,6 @@ const order = sequelize.define('orders', {
         type: Sequelize.DATEONLY,
         allowNull: true,
     },
-    order_Date: {
-        type: Sequelize.DATEONLY,
-        allowNull: true,
-    },
     status: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -37,8 +33,6 @@ const order = sequelize.define('orders', {
         allowNull: true,
         type: Sequelize.INTEGER
     }
-}, {
-    timestamps: false
 });
 
 export default order;

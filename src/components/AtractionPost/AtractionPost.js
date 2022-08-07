@@ -1,7 +1,5 @@
-import { Text, View, Image, Button, Pressable } from 'react-native'
+import { Text, View, Image, Pressable } from 'react-native'
 import React, { useState } from 'react'
-// import { carData } from '../../Data/cardata';
-// import { AtractionData } from '../../Data/atractiondata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

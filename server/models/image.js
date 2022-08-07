@@ -10,7 +10,7 @@ const Image = sequelize.define('images', {
     },
     link: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     },
     attractionId: {
         allowNull: true,

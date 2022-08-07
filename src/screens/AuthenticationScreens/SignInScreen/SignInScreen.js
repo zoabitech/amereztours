@@ -1,11 +1,11 @@
 import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, Platform } from 'react-native'
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import Logo from '../../../../assets/images/company_logo.png'
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
 import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { UserContext } from "../../../context/UserContext";
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -18,19 +18,19 @@ const SignInScreen = () => {
 
     const onLoggedIn = (token) => {
 
-        fetch(`http://192.168.1.183:3001/private`, {
+        fetch(`http://192.168.1.22:3001/private`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${token.token}`,
             },
         }).then(async res => {
             try {
                 const jsonRes = await res.json();
                 if (res.status === 200) {
                     alert(jsonRes.message)
+                    setUser(token.dbUser)
                     navigation.navigate("Profile")
-                    setUser(jsonRes)
                 }
             } catch (err) {
                 console.log(err.message);
@@ -48,7 +48,7 @@ const SignInScreen = () => {
             Email,
             Password,
         };
-        fetch(`http://192.168.1.183:3001/login`, {
+        fetch(`http://192.168.1.22:3001/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const SignInScreen = () => {
                 if (res.status !== 200) {
                     alert(jsonRes.message);
                 } else {
-                    onLoggedIn(jsonRes.token);
+                    onLoggedIn(jsonRes);
                     alert(jsonRes.message);
                 }
             } catch (err) {
