@@ -59,7 +59,7 @@ const AtrractionPost = (props) => {
                     />
                     {item.description}
                 </Text>
-                <View style={styles.ratingContainer}>
+                {/* <View style={styles.ratingContainer}>
                     {[0, 0, 0, 0, 0].map((el, i) =>
                         <FontAwesome
                             key={`${item.id}-${i}`}
@@ -69,7 +69,7 @@ const AtrractionPost = (props) => {
                             color={'#e47911'}
                         />
                     )}
-                </View>
+                </View> */}
                 <View style={styles.pi}>
                     <FontAwesome
                         name={liked ? "heart" : "heart-o"}

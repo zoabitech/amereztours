@@ -1,9 +1,10 @@
 import { StyleSheet, View, } from 'react-native'
 import React, { useContext } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import CustomButton from '../../components/CustomButton';
 import { UserContext } from '../../context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ProfileScreen = () => {
 
@@ -11,11 +12,20 @@ const ProfileScreen = () => {
     const { control, handleSubmit } = useForm();
     const { user, setUser } = useContext(UserContext);
 
-    const onLogedOutPressed = () => {
-        setUser(null);
+    const onLogedOutPressed = async () => {
+
+        //function that clear the user from the asyncStrarge after the user cklick on the logout
+        try {
+            setUser(null);
+            await AsyncStorage.clear()
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     const onSignInPressed = () => {
+        //function that navigate the user to the sign in screen 
         navigation.navigate('SignIn')
     }
 

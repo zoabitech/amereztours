@@ -8,7 +8,9 @@ import { useNavigation } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
 import { StartDateContext } from "../../context/StartDateContext";
 import { EndDateContext } from "../../context/EndDateContext";
+
 const AttractionIfoPost = (props) => {
+
     const { item } = props;
     const images = item.images.map((a, index) => a.link)
     const { user } = useContext(UserContext);
@@ -19,7 +21,6 @@ const AttractionIfoPost = (props) => {
     const [showGateway, setShowGateway] = useState(false);
     const [prog, setProg] = useState(false);
     const [progClr, setProgClr] = useState('#000');
-
     function onMessage(e) {
         let data = e.nativeEvent.data;
         setShowGateway(false);
@@ -34,31 +35,31 @@ const AttractionIfoPost = (props) => {
 
     }
 
-    // function _createOrder(data, actions) {
-    //     return actions.order.create({
-    //         purchase_units: [
-    //             {
-    //                 amount: {
-    //                     value: "10",
-    //                 },
-    //             },
-    //         ],
-    //     });
-    // }
+    const createOrder = (data, actions) => {
+        return actions.order.create({
+            purchase_units: [
+                {
+                    amount: {
+                        value: "10",
+                    },
+                },
+            ],
+        });
+    }
 
-    // async function _onApprove(data, actions) {
-    //     let order = await actions.order.capture();
-    //     console.log(order);
-    //     window.ReactNativeWebView &&
-    //         window.ReactNativeWebView.postMessage(JSON.stringify(order));
-    //     return order;
-    // }
+    const onApprove = async (data, actions) => {
+        let order = await actions.order.capture();
+        console.log(order);
+        window.ReactNativeWebView &&
+            window.ReactNativeWebView.postMessage(JSON.stringify(order));
+        return order;
+    }
 
     const addOrderAfterPaymentSuccessfully = () => {
 
         const payload = {
             attractionId: item.id,
-            id: user.id,
+            id: user.user.id,
             startDate,
             endDate,
             status: "New",
@@ -149,8 +150,10 @@ const AttractionIfoPost = (props) => {
                             onLoad={() => {
                                 setProg(false);
                             }}
+                            createorder={createOrder}
+                            onapprove={onApprove}
                             onMessage={onMessage}
-                            createOrder={() => _createOrder()}
+
                         />
                     </View>
                 </Modal>

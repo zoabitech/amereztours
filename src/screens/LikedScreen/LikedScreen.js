@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const LikedScreen = () => {
+
     return (
         <View style={styles.root}>
             <Text>LikedScreen</Text>

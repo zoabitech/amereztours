@@ -1,12 +1,13 @@
 import { Text, View, Image } from 'react-native'
 import React from 'react'
-import { orderData } from '../../Data/orderdata';
+// import { orderData } from '../../Data/orderdata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const OrderPost = (props) => {
     const { item } = props;
+
     return (
         <View>
             <View style={[styles.root, styles.shadowProp]}>
@@ -19,7 +20,7 @@ const OrderPost = (props) => {
                             name="calendar"
                             size={12}
                         />
-                        {' '}{item.pickupdate}{'/'}{item.returndate}
+                        {' '}{item.start_Date}{'/'}{item.end_Date}
                     </Text>
                     <Text
                         style={styles.pickupandreturndate}>

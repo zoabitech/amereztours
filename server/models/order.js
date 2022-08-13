@@ -32,6 +32,10 @@ const order = sequelize.define('orders', {
     vehicleId: {
         allowNull: true,
         type: Sequelize.INTEGER
+    },
+    cuaninty: {
+        allowNull: false,
+        type: Sequelize.INTEGER
     }
 });
 

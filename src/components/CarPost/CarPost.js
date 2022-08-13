@@ -80,7 +80,7 @@ const CarPost = (props) => {
                         />
                         {' '}Air-Condition
                     </Text>
-                    <View style={styles.ratingContainer}>
+                    {/* <View style={styles.ratingContainer}>
                         {[0, 0, 0, 0, 0].map((el, i) =>
                             <FontAwesome
                                 key={`${item.id}-${i}`}
@@ -90,7 +90,7 @@ const CarPost = (props) => {
                                 color={'#e47911'}
                             />
                         )}
-                    </View>
+                    </View> */}
                     <Text style={styles.price}>$ {item.price}</Text>
                 </View>
                 <View style={styles.rootimage}>

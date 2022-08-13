@@ -1,4 +1,12 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, Platform } from 'react-native'
+import {
+    View,
+    Text,
+    Image,
+    StyleSheet,
+    useWindowDimensions,
+    ScrollView,
+    Platform
+} from 'react-native'
 import React, { useContext } from 'react';
 import Logo from '../../../../assets/images/company_logo.png'
 import CustomInput from '../../../components/CustomInput/CustomInput';
@@ -7,15 +15,29 @@ import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { UserContext } from "../../../context/UserContext";
+import { OrderDataContext } from "../../../context/OrderDataContext";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const API_URL = Platform.OS === 'android' ? 'http://localhost:5000' : 'http://192.168.1.183:3001';
 const SignInScreen = () => {
+
+
     const { height } = useWindowDimensions();
     const { control, handleSubmit } = useForm();
     const navigation = useNavigation();
     const { user, setUser } = useContext(UserContext);
 
+    const { orderData, setOrderData } = useContext(OrderDataContext);
+
+
+    const setData = async (user) => {
+        try {
+            await AsyncStorage.setItem('user', JSON.stringify({ user }))
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const onLoggedIn = (token) => {
 
         fetch(`http://192.168.1.22:3001/private`, {
@@ -24,12 +46,14 @@ const SignInScreen = () => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token.token}`,
             },
+
         }).then(async res => {
             try {
                 const jsonRes = await res.json();
                 if (res.status === 200) {
                     alert(jsonRes.message)
                     setUser(token.dbUser)
+                    setData(token.dbUser)
                     navigation.navigate("Profile")
                 }
             } catch (err) {
@@ -70,6 +94,36 @@ const SignInScreen = () => {
             console.log(err.message);
         });
     };
+
+    // const getAllOrders = async (id) => {
+
+    //     //fucntion that get all the order of the spic user
+    //     const payload = {
+    //         id
+    //     };
+    //     fetch(`http://192.168.1.22:3001/fetchOrder`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(payload),
+    //     }).then(async res => {
+    //         try {
+    //             const jsonRes = await res.json();
+    //             if (res.status !== 200) {
+    //                 alert(jsonRes.message);
+    //                 return;
+    //             } else {
+    //                 setOrderData(jsonRes);
+    //             }
+    //         } catch (err) {
+    //             console.log(err.message);
+    //         };
+    //     }).catch(err => {
+    //         console.log(err.message);
+    //     });
+    // };
+
 
     const onForgotPasswordPressed = () => {
         navigation.navigate('NewPassword')
