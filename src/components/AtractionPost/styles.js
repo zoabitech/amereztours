@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     root: {
         flexDirection: 'row',
-        margin: 7,
+        margin: 5,
         backgroundColor: 'white',
     },
     image: {
@@ -31,15 +31,8 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         color: '#9A0000'
     },
-    ratingContainer: {
-        flexDirection: 'row',
-    },
     like: {
         alignSelf: 'flex-end'
-    },
-    star: {
-        margin: 2,
-        marginVertical: 7,
     },
     shadowProp: {
         borderWidth: 0.1,

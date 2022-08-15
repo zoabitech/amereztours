@@ -9,9 +9,13 @@ const signup = async (req, res, next) => {
     const dbUser = await User.findOne({
         where: {
             email: req.body.Email,
+            // username: req.body.userName,
+            // passport: req.body.CIN_Passeport,
+            // phone: req.body.phoneNumber,
         }
     }).then(dbUser => {
         if (dbUser) {
+            console.log(dbUser)
             return res.status(409).json({ message: "email already exists" });
         } else if (req.body.Email && req.body.Password) {
             // password hash

@@ -41,7 +41,43 @@ const styles = StyleSheet.create({
     },
     desc: {
         padding: 3
-    }
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+    },
+    btnCon: {
+        height: 45,
+        width: '70%',
+        elevation: 1,
+        backgroundColor: '#00457C',
+        borderRadius: 3,
+    },
+    btn: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    btnTxt: {
+        color: '#fff',
+        fontSize: 18,
+    },
+    webViewCon: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    wbHead: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#f9f9f9',
+        zIndex: 25,
+        elevation: 2,
+    },
     // ratingContainer: {
     //     flexDirection: 'row',
     // },

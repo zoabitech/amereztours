@@ -1,5 +1,5 @@
 import { Text, View, Image, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { carData } from '../../Data/cardata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -8,20 +8,30 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
+import { LikedDataContext } from '../../context/LikedDataContext';
 
 const CarPost = (props) => {
     const [liked, setLiked] = useState(false);
+    const { likedData, setLikedData } = useContext(LikedDataContext);
     const { item } = props;
 
     const images = item.images.map(a => a.link)//array of the images of the item.images
     const navigation = useNavigation();
 
+    const addItemLIked = () => {
+
+        const l = []
+        if (liked) {
+            l.push(item)
+            likedData.push(item)
+        }
+        console.log("likedData", likedData)
+        console.log(l)
+    }
     const goToAttractionPostPageInfo = () => {
         //function that navigate to the spicifc vehicle
         navigation.navigate("CarInfoPost", { CarPostId: item.id })
     }
-
-
     return (
         <Pressable onPress={goToAttractionPostPageInfo}>
             <View style={[styles.root, styles.shadowProp]}>
@@ -80,17 +90,6 @@ const CarPost = (props) => {
                         />
                         {' '}Air-Condition
                     </Text>
-                    {/* <View style={styles.ratingContainer}>
-                        {[0, 0, 0, 0, 0].map((el, i) =>
-                            <FontAwesome
-                                key={`${item.id}-${i}`}
-                                style={styles.star}
-                                name={i < Math.floor(item.avgRating) ? 'star' : 'star-o'}
-                                size={20}
-                                color={'#e47911'}
-                            />
-                        )}
-                    </View> */}
                     <Text style={styles.price}>$ {item.price}</Text>
                 </View>
                 <View style={styles.rootimage}>
@@ -99,8 +98,10 @@ const CarPost = (props) => {
                         size={20}
                         style={styles.like}
                         color={"red"}
-                        onPress={() =>
+                        onPress={() => {
                             setLiked(!liked)
+                            addItemLIked()
+                        }
                         } />
                     <Image
                         source={{ uri: images[0] }}

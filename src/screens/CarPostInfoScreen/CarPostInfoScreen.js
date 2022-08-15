@@ -10,7 +10,6 @@ const CarPostInfoScreen = (props) => {
     //route hook to get the spicifice post to route into
     const route = useRoute();
     const post = carData.find(element => element.id === route.params.CarPostId)
-    console.log("carData", carData)
     return (
         <View style={styles.root}>
             <CarInfoPost

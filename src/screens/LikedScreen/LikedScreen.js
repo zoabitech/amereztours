@@ -1,11 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
+import React, { useContext, useEffect } from 'react'
+import { LikedDataContext } from '../../context/LikedDataContext';
+import CarPost from '../../components/CarPost/CarPost';
+
 
 const LikedScreen = () => {
-
+    const { likedData, setLikedData } = useContext(LikedDataContext);
+    useEffect(() => {
+        console.log("likedData", likedData)
+    }, [])
     return (
         <View style={styles.root}>
-            <Text>LikedScreen</Text>
+            <FlatList
+                data={likedData}
+                renderItem={({ item }) => <CarPost item={item} />
+                }
+            />
         </View>
     )
 }

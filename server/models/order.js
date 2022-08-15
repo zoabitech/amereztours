@@ -1,5 +1,4 @@
 import { Sequelize } from 'Sequelize';
-
 import sequelize from '../utils/database.js';
 
 const order = sequelize.define('orders', {
@@ -33,9 +32,25 @@ const order = sequelize.define('orders', {
         allowNull: true,
         type: Sequelize.INTEGER
     },
-    cuaninty: {
+    quantity: {
         allowNull: false,
         type: Sequelize.INTEGER
+    },
+    item_title: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    phone_num: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    order_price: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+    },
+    img_link: {
+        type: Sequelize.STRING,
+        allowNull: false,
     }
 });
 

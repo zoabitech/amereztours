@@ -1,5 +1,4 @@
 import { Sequelize } from 'Sequelize';
-
 import sequelize from '../utils/database.js';
 import Image from '../models/image.js'
 const attraction = sequelize.define('attractions', {

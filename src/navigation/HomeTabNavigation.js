@@ -29,10 +29,11 @@ const HomeTabNavigation = (props) => {
             console.log(error)
         }
     }
-    const getAllOrders = async (id) => {
+    const getAllOrders = async () => {
         //fucntion that get all the order of the spic user
+
         const payload = {
-            id
+            id: user.id
         };
         fetch(`http://192.168.1.22:3001/fetchOrder`, {
             method: 'POST',
@@ -98,8 +99,9 @@ const HomeTabNavigation = (props) => {
                     )
                 }}
                 listeners={{
-                    tabPress: (e) => {
-                        getAllOrders(user.user.id)
+                    tabPress: () => {
+                        if (user !== null)
+                            getAllOrders()
                     },
                 }}
             />

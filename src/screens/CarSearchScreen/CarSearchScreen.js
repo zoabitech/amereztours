@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, Pressable, Text, SafeAreaView, StatusBar } from 'react-native'
 import React, { useContext, useState } from 'react'
 import CarPost from '../../components/CarPost/CarPost'
 import CustomDatePicker from '../../components/DatePakier/CustomDatePicker';
@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { StartDateContext } from "../../context/StartDateContext";
 import { EndDateContext } from "../../context/EndDateContext";
 import { CarDataContext } from '../../context/CarDataContext';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const CarSearchScreen = () => {
 
     const { control, handleSubmit, watch } = useForm();
@@ -16,7 +18,6 @@ const CarSearchScreen = () => {
     const { startDate } = useContext(StartDateContext);
     const { endDate } = useContext(EndDateContext);
     const [loading, setLodaing] = useState(false);
-
 
     const onSearchPressed = () => {
         // on search function that get all the cars acording the start date and end date and amount of gusets using fetch
@@ -53,60 +54,86 @@ const CarSearchScreen = () => {
     };
 
     return (
-        <View style={styles.root}>
+        <>{carData === undefined &&
+            < View style={styles.root}>
 
-            <CustomDatePicker
-                textStyle={{
-                    paddingVertical: 15,
-                    paddingHorizontal: 10,
-                    borderColor: '#febb02',
-                    borderWidth: 2,
-                    marginTop: 15,
-                    marginBottom: 0,
-                    margin: 10,
-                }}
-            />
-            <EndCustomDatePicker
-                textStyle={{
-                    paddingVertical: 15,
-                    paddingHorizontal: 10,
-                    borderColor: '#febb02',
-                    borderWidth: 2,
-                    marginTop: 0,
-                    marginBottom: 0,
-                    margin: 10
-                }}
-            />
-            <CustomInput
-                name="Guste"
-                placeholder="Participants"
-                control={control}
-                // rules={{ required: 'First name is required', pattern: { value: 10, message: 'First name is invalid' } }}
-                style={{
-                    borderColor: '#febb02',
-                    borderWidth: 2,
-                    width: '94.5%',
-                    alignSelf: 'center',
-                    backgroundColor: 'blcak',
-                    marginTop: 0
-                }}
-            />
-            <CustomButton
-                text={(loading) ? 'Loading...' : 'Search'}
-                type='TERTIARY'
-                loading={loading}
-                bgColor="rgb(251, 78, 41)"
-                fgColor="rgb(193,202,202)"
-                onPress={handleSubmit(onSearchPressed)}
-            />
-            {carData?.length > 0 &&
+                <CustomDatePicker
+                    textStyle={{
+                        paddingVertical: 15,
+                        paddingHorizontal: 10,
+                        borderColor: '#febb02',
+                        borderWidth: 2,
+                        marginTop: 15,
+                        marginBottom: 0,
+                        margin: 10,
+                    }}
+                />
+                <EndCustomDatePicker
+                    textStyle={{
+                        paddingVertical: 15,
+                        paddingHorizontal: 10,
+                        borderColor: '#febb02',
+                        borderWidth: 2,
+                        marginTop: 0,
+                        marginBottom: 0,
+                        margin: 10
+                    }}
+                />
+                <CustomInput
+                    name="Guste"
+                    placeholder="Participants"
+                    control={control}
+                    // rules={{ required: 'First name is required', pattern: { value: 10, message: 'First name is invalid' } }}
+                    style={{
+                        borderColor: '#febb02',
+                        borderWidth: 2,
+                        width: '94.5%',
+                        alignSelf: 'center',
+                        backgroundColor: 'blcak',
+                        marginTop: 0
+                    }}
+                />
+                <CustomButton
+                    text={(loading) ? 'Loading...' : 'Search'}
+                    type='TERTIARY'
+                    loading={loading}
+                    bgColor="rgb(251, 78, 41)"
+                    fgColor="rgb(193,202,202)"
+                    onPress={handleSubmit(onSearchPressed)}
+                />
+                {/* {carData !== undefined &&
                 <FlatList
                     data={carData}
                     renderItem={({ item }) => <CarPost item={item} />
                     }
                 />
+            } */}
+            </View>
+        }
+            {
+                carData !== undefined &&
+                <>
+                    <Pressable
+                        onPress={() => setCarData(undefined)}
+                    >
+                        <Text style={{ marginLeft: 5, marginTop: 5, marginBottom: 0 }}>
+                            <Ionicons
+                                name="arrow-back"
+                                size={25}
+                            />
+                        </Text>
+                    </Pressable>
+                    <SafeAreaView style={{ marginBottom: 30 }}>
+                        <StatusBar hidden />
+                        <FlatList
+                            data={carData}
+                            renderItem={({ item }) => <CarPost item={item} />
+                            }
+                        />
+                    </SafeAreaView>
+                </>
             }
-        </View>
+        </>
     )
 }
 

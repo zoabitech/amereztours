@@ -31,15 +31,15 @@ const AtrractionPost = (props) => {
                     />
                     {' '}{item.location}{ }
                 </Text>
-                {/* <Text
+                <Text
                     style={styles.plcaes}
                 >
                     <FontAwesome
                         name="drivers-license-o"
                         size={12}
                     />
-                    {' '}Driver / Without Driver
-                </Text> */}
+                    {' '}Driver
+                </Text>
                 <Text
                     style={styles.plcaes}
                 >
@@ -59,17 +59,6 @@ const AtrractionPost = (props) => {
                     />
                     {item.description}
                 </Text>
-                {/* <View style={styles.ratingContainer}>
-                    {[0, 0, 0, 0, 0].map((el, i) =>
-                        <FontAwesome
-                            key={`${item.id}-${i}`}
-                            style={styles.star}
-                            name={i < Math.floor(item.avgRating) ? 'star' : 'star-o'}
-                            size={20}
-                            color={'#e47911'}
-                        />
-                    )}
-                </View> */}
                 <View style={styles.pi}>
                     <FontAwesome
                         name={liked ? "heart" : "heart-o"}

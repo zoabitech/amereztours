@@ -9,11 +9,11 @@ const OrderScreen = () => {
 
     const { user } = useContext(UserContext);
     const { orderData, setOrderData } = useContext(OrderDataContext);
-    console.log(orderData)
+
     return (
         <View style={styles.root}>
             <FlatList
-                data={orderData.dbOrders}
+                data={orderData?.dbOrders}
                 renderItem={({ item }) => <OrderPost item={item} />
                 }
             />

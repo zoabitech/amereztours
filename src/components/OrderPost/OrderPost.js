@@ -7,12 +7,12 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const OrderPost = (props) => {
     const { item } = props;
-
+    
     return (
         <View>
             <View style={[styles.root, styles.shadowProp]}>
                 <View style={styles.rightContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.title}>{item.item_title}</Text>
                     <Text
                         style={styles.pickupandreturndate}
                     >
@@ -30,11 +30,11 @@ const OrderPost = (props) => {
                         />
                         {' '}{item.location}
                     </Text>
-                    <Text style={styles.price}>$ {item.totalprice}</Text>
+                    <Text style={styles.price}>${item.order_price}</Text>
                 </View>
                 <View style={styles.imageroot}>
                     <Image
-                        source={{ uri: item.image }}
+                        source={{ uri: item.img_link }}
                         style={styles.image}
                     />
                     <Text style={styles.logostyle}>Ame Rez Tours</Text>

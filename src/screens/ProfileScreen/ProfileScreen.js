@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import CustomButton from '../../components/CustomButton';
 import { UserContext } from '../../context/UserContext';
+import { OrderDataContext } from '../../context/OrderDataContext';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ProfileScreen = () => {
@@ -11,12 +12,14 @@ const ProfileScreen = () => {
     const navigation = useNavigation();
     const { control, handleSubmit } = useForm();
     const { user, setUser } = useContext(UserContext);
+    const { orderData, setOrderData } = useContext(OrderDataContext);
 
     const onLogedOutPressed = async () => {
 
         //function that clear the user from the asyncStrarge after the user cklick on the logout
         try {
             setUser(null);
+            setOrderData(undefined)
             await AsyncStorage.clear()
         } catch (error) {
             console.log(error)

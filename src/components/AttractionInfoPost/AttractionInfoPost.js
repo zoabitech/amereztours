@@ -60,9 +60,14 @@ const AttractionIfoPost = (props) => {
         const payload = {
             attractionId: item.id,
             id: user.user.id,
+            phone: user.user.phone,
             startDate,
             endDate,
+            vid: null,
             status: "New",
+            price: item.price,
+            title: item.title,
+            img: images[0]
         };
         fetch(`http://192.168.1.22:3001/addOrder`, {
             method: 'POST',

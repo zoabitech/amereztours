@@ -20,7 +20,7 @@ const Carousel = (props) => {
                         <Image source={{ uri: item }} style={{
                             width: imageW,
                             height: imageH,
-                            resizeMode: 'cover',
+                            resizeMode: 'contain',
                             borderRadius: 16,
                             margin: 10
                         }} />

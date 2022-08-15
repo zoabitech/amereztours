@@ -18,6 +18,8 @@ import { DataContext } from './src/context/DataContext';
 import { CarDataContext } from './src/context/CarDataContext';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { OrderDataContext } from './src/context/OrderDataContext';
+import { LikedDataContext } from './src/context/LikedDataContext'
+
 const App = () => {
 
   //setting the user to null at the first run of the app
@@ -33,12 +35,14 @@ const App = () => {
   const [data, setData] = useState(undefined)
   const dataValue = useMemo(() => ({ data, setData }), [data, setData])
   //array of object for the car data  
-  const [carData, setCarData] = useState(null);
+  const [carData, setCarData] = useState(undefined);
   const carDataValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData])
   //array of object for the car data  
   const [orderData, setOrderData] = useState(null);
   const orderDataValue = useMemo(() => ({ orderData, setOrderData }), [orderData, setOrderData])
 
+  const [likedData, setLikedData] = useState([]);
+  const likedDataValue = useMemo(() => ({ likedData, setLikedData }), [likedData, setLikedData])
 
   useEffect(() => {
     getData()
@@ -50,8 +54,8 @@ const App = () => {
       const userData = JSON.parse(userValue)
       const ordersValue = await AsyncStorage.getItem('orders')
       const ordersData = JSON.parse(ordersValue)
-      console.log("user", JSON.stringify(userData, null, 4))
-      console.log("orders", JSON.stringify(ordersData, null, 4))
+      // console.log("user", JSON.stringify(userData, null, 4))
+      // console.log("orders", JSON.stringify(ordersData, null, 4))
       if (userData != null) {
         setUser(userData)
       }
@@ -63,19 +67,21 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.root}>
-      <OrderDataContext.Provider value={orderDataValue}>
-        <CarDataContext.Provider value={carDataValue}>
-          <DataContext.Provider value={dataValue}>
-            <StartDateContext.Provider value={startDateValue}>
-              <EndDateContext.Provider value={endDateValue}>
-                <UserContext.Provider value={value}>
-                  <Navigation />
-                </UserContext.Provider>
-              </EndDateContext.Provider>
-            </StartDateContext.Provider>
-          </DataContext.Provider>
-        </CarDataContext.Provider>
-      </OrderDataContext.Provider>
+      <LikedDataContext.Provider value={likedDataValue}>
+        <OrderDataContext.Provider value={orderDataValue}>
+          <CarDataContext.Provider value={carDataValue}>
+            <DataContext.Provider value={dataValue}>
+              <StartDateContext.Provider value={startDateValue}>
+                <EndDateContext.Provider value={endDateValue}>
+                  <UserContext.Provider value={value}>
+                    <Navigation />
+                  </UserContext.Provider>
+                </EndDateContext.Provider>
+              </StartDateContext.Provider>
+            </DataContext.Provider>
+          </CarDataContext.Provider>
+        </OrderDataContext.Provider>
+      </LikedDataContext.Provider>
     </SafeAreaView >
 
   );
