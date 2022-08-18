@@ -1,23 +1,39 @@
-import { StyleSheet, View, FlatList, ScrollView, StatusBar, TouchableOpacity, Pressable, Text } from 'react-native'
-import React, { useContext, useState } from 'react'
+//REACT AND REACT NATVE IMPORTS
+import {
+    View,
+    FlatList,
+    StatusBar,
+    Pressable,
+    Text
+} from 'react-native'
+import React,
+{
+    useContext,
+    useState
+} from 'react'
+//COMPONENET IMPORTS
 import AtractionPost from '../../components/AtractionPost';
 import CustomDatePicker from '../../components/DatePakier/CustomDatePicker';
 import EndCustomDatePicker from '../../components/DatePakier/EndCustomDatePicker';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import { useForm } from 'react-hook-form';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+//CONTEXT IMPORTS
 import { StartDateContext } from "../../context/StartDateContext";
 import { EndDateContext } from "../../context/EndDateContext";
-// import DatePiker from '../../components/DatePakierCon/DatePiker';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { DataContext } from '../../context/DataContext';
+import { AttractionDataContext } from '../../context/AttractionDataContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+const API_URL = Platform.OS === 'android' ? 'http://192.168.1.183:3001' : 'http://localhost:5000';
+
+
 const AtractionSearchScreen = () => {
 
-    const { control, handleSubmit, watch } = useForm();
+    const { control, handleSubmit } = useForm();
     const { startDate } = useContext(StartDateContext);
     const { endDate } = useContext(EndDateContext);
-    const { data, setData } = useContext(DataContext)
+    const { attractionData, setAttractionData } = useContext(AttractionDataContext)
     const [loading, setLodaing] = useState(false);
 
     const onSearchPressed = () => {
@@ -26,7 +42,7 @@ const AtractionSearchScreen = () => {
             startDate,
             endDate,
         };
-        fetch(`http://192.168.1.22:3001/fetchAtractionByDateResults`, {
+        fetch(`${API_URL}/fetchAtractionByDateResults`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,28 +52,26 @@ const AtractionSearchScreen = () => {
             try {
                 setLodaing(true);
                 const jsonRes = await res.json();
-                console.log(jsonRes)
                 if (res.status !== 200) {
                     alert(jsonRes.message);
                 } else {
-                    setData(jsonRes)
-                    console.log("jsonRes", JSON.stringify(jsonRes, null, 4))
+                    setAttractionData(jsonRes)
                 }
             } catch (err) {
-                console.log("a", err.message);
+                console.log(err.message);
             } finally {
                 setTimeout(() => {
                     setLodaing(false);
                 }, 5000)
             }
         }).catch(err => {
-            console.log("b", err.message);
+            console.log(err.message);
         });
     };
     return (
         <>
-            {data === undefined &&
-                <View style={styles.root}>
+            {attractionData === undefined &&
+                <View style={{ margin: 10 }}>
                     <CustomDatePicker
                         textStyle={{
                             paddingVertical: 15,
@@ -81,10 +95,10 @@ const AtractionSearchScreen = () => {
                         }}
                     />
                     <CustomInput
-                        name="Guste"
+                        name="Participant"
                         placeholder="Participants"
                         control={control}
-                        // rules={{ required: 'First name is required', pattern: { value: 10, message: 'First name is invalid' } }}
+                        rules={{ required: 'Participants is required', pattern: { value: 10, message: 'Participants is invalid' } }}
                         style={{
                             borderColor: '#febb02',
                             borderWidth: 2,
@@ -105,10 +119,10 @@ const AtractionSearchScreen = () => {
 
                 </View>
             }
-            {data !== undefined &&
+            {attractionData !== undefined &&
                 <>
                     <Pressable
-                        onPress={() => setData(undefined)}
+                        onPress={() => setAttractionData(undefined)}
                     >
                         <Text style={{ marginLeft: 5, marginTop: 5, marginBottom: 0 }}>
                             <Ionicons
@@ -120,7 +134,7 @@ const AtractionSearchScreen = () => {
                     <SafeAreaView style={{ marginBottom: 30 }}>
                         <StatusBar hidden />
                         <FlatList
-                            data={data}
+                            data={attractionData}
                             renderItem={({ item }) => <AtractionPost item={item} />
                             }
                         />
@@ -128,25 +142,7 @@ const AtractionSearchScreen = () => {
                 </>
             }
         </>
-        // <>
-        //     <DatePiker
-        //         control={control}
-        //     />
-        //     <CustomButton
-        //         text={(loading) ? 'Loading...' : 'Search'}
-        //         type='TERTIARY'
-        //         bgColor="rgb(251, 78, 41)"
-        //         fgColor="rgb(193,202,202)"
-        //         onPress={handleSubmit(onSearchPressed)}
-        //     />
-        // </>
     )
 }
 
 export default AtractionSearchScreen;
-
-const styles = StyleSheet.create({
-    root: {
-        margin: 10
-    }
-})

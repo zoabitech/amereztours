@@ -1,18 +1,29 @@
-import { StyleSheet, View } from 'react-native'
-import React, { useContext } from 'react'
+//REACT AND REACT NATIVE IMPORTS
+import {
+    StyleSheet,
+    View
+} from 'react-native'
+import
+React,
+{ useContext } from 'react'
 import { useRoute } from '@react-navigation/native';
+//COMPONENETS IMPORTS
 import AttractionInfoPost from '../../components/AttractionInfoPost/AttractionInfoPost';
-import { DataContext } from '../../context/DataContext';
+//CONTEXT IMPORTS
+import { AttractionDataContext } from '../../context/AttractionDataContext';
 
 const AttractionPostInfoScreen = (props) => {
 
-    const { data } = useContext(DataContext)
+    const { attractionData } = useContext(AttractionDataContext)
     //route hook to get the spicifice post to route into
     const route = useRoute();
-    const post = data.find(element => element.id === route.params.PostId)
+    const post = attractionData.find(element => element.id === route.params.PostId)
 
     return (
-        <View style={styles.root}>
+        <View style={{
+            flex: 1,
+            margin: 2,
+        }}>
             <AttractionInfoPost
                 item={post}
             />
@@ -21,10 +32,3 @@ const AttractionPostInfoScreen = (props) => {
 }
 
 export default AttractionPostInfoScreen;
-
-const styles = StyleSheet.create({
-    root: {
-        flex: 1,
-        margin: 2,
-    }
-})

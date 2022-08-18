@@ -1,17 +1,19 @@
-import { View, StyleSheet, FlatList } from 'react-native'
-import React, { useEffect, useContext } from 'react'
-// import { orderData } from '../../Data/orderdata';
+//REACT AND REACT NATIVE IMPORTS
+import { View, FlatList } from 'react-native'
+import React, { useContext } from 'react'
+//COMPONENETS IMPORTS
 import OrderPost from '../../components/OrderPost/OrderPost';
+//CONTEXT IMPORTS
 import { OrderDataContext } from '../../context/OrderDataContext';
 import { UserContext } from '../../context/UserContext';
 
 const OrderScreen = () => {
 
     const { user } = useContext(UserContext);
-    const { orderData, setOrderData } = useContext(OrderDataContext);
+    const { orderData, } = useContext(OrderDataContext);
 
     return (
-        <View style={styles.root}>
+        <View style={{ margin: 2 }}>
             <FlatList
                 data={orderData?.dbOrders}
                 renderItem={({ item }) => <OrderPost item={item} />
@@ -21,9 +23,3 @@ const OrderScreen = () => {
     )
 }
 export default OrderScreen
-
-const styles = StyleSheet.create({
-    root: {
-        margin: 2,
-    }
-})

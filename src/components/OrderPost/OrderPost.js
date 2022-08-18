@@ -1,18 +1,26 @@
-import { Text, View, Image } from 'react-native'
+import {
+    Text,
+    View,
+    Image
+} from 'react-native'
 import React from 'react'
-// import { orderData } from '../../Data/orderdata';
 import styles from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const OrderPost = (props) => {
     const { item } = props;
-    
+
     return (
         <View>
-            <View style={[styles.root, styles.shadowProp]}>
-                <View style={styles.rightContainer}>
-                    <Text style={styles.title}>{item.item_title}</Text>
+            <View
+                style={[styles.root, styles.shadowProp]}>
+                <View
+                    style={styles.rightContainer}>
+                    <Text
+                        style={styles.title}>
+                        {item.item_title}
+                    </Text>
                     <Text
                         style={styles.pickupandreturndate}
                     >
@@ -30,14 +38,21 @@ const OrderPost = (props) => {
                         />
                         {' '}{item.location}
                     </Text>
-                    <Text style={styles.price}>${item.order_price}</Text>
+                    <Text
+                        style={styles.price}>
+                        ${item.order_price}
+                    </Text>
                 </View>
-                <View style={styles.imageroot}>
+                <View
+                    style={styles.imageroot}>
                     <Image
                         source={{ uri: item.img_link }}
                         style={styles.image}
                     />
-                    <Text style={styles.logostyle}>Ame Rez Tours</Text>
+                    <Text
+                        style={styles.logostyle}>
+                        Ame Rez Tours
+                    </Text>
                 </View>
             </View>
 

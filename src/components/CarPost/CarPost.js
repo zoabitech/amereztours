@@ -1,13 +1,24 @@
-import { Text, View, Image, Pressable } from 'react-native'
-import React, { useState, useContext, useEffect } from 'react'
-import { carData } from '../../Data/cardata';
+//REACT AND REACT NATIVE IMPORTS
+import {
+    Text,
+    View,
+    Image,
+    Pressable
+} from 'react-native'
+import React,
+{
+    useState,
+    useContext
+} from 'react'
+import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
+//ICONS IMPORTS
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
+//CONTEXT IMPORTS
 import { LikedDataContext } from '../../context/LikedDataContext';
 
 const CarPost = (props) => {
@@ -33,10 +44,16 @@ const CarPost = (props) => {
         navigation.navigate("CarInfoPost", { CarPostId: item.id })
     }
     return (
-        <Pressable onPress={goToAttractionPostPageInfo}>
-            <View style={[styles.root, styles.shadowProp]}>
-                <View style={styles.rightContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
+        <Pressable
+            onPress={goToAttractionPostPageInfo}>
+            <View
+                style={[styles.root, styles.shadowProp]}>
+                <View
+                    style={styles.rightContainer}>
+                    <Text
+                        style={styles.title}>
+                        {item.title}
+                    </Text>
                     <Text
                         style={styles.plcaes}>
                         <MaterialCommunityIcons
@@ -90,7 +107,9 @@ const CarPost = (props) => {
                         />
                         {' '}Air-Condition
                     </Text>
-                    <Text style={styles.price}>$ {item.price}</Text>
+                    <Text style={styles.price}>
+                        $ {item.price}
+                    </Text>
                 </View>
                 <View style={styles.rootimage}>
                     <FontAwesome
@@ -116,13 +135,3 @@ const CarPost = (props) => {
 }
 
 export default CarPost;
-
-
-/*<FontAwesome
-    name={liked ? "heart" : "heart"}
-    size={20}
-    color={"red"}
-    onPress={
-        setLiked(!liked)
-    }
-/>*/

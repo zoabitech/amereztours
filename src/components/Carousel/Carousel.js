@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Dimensions, StatusBar, FlatList, Image } from 'react-native'
+import { View, Dimensions, StatusBar, FlatList, Image } from 'react-native'
 import React from 'react'
 
 const Carousel = (props) => {

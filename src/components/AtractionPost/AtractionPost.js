@@ -1,11 +1,18 @@
-import { Text, View, Image, Pressable } from 'react-native'
+//REACT AND REACT NATIVE IMPORTS
+import {
+    Text,
+    View,
+    Image,
+    Pressable
+} from 'react-native'
 import React, { useState } from 'react'
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
+//ICONS IMPORTS
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { useNavigation } from '@react-navigation/native';
 
 const AtrractionPost = (props) => {
     const [liked, setLiked] = useState(false);
@@ -20,16 +27,23 @@ const AtrractionPost = (props) => {
         navigation.navigate("PostInfo", { PostId: item.id })
     }
     return (
-        <Pressable onPress={goToAttractionPostPageInfo} style={[styles.root, styles.shadowProp]}>
-            <View style={styles.leftContainer}>
-                <Text style={styles.title}>{item.title}</Text>
+        <Pressable
+            onPress={goToAttractionPostPageInfo}
+            style={[styles.root, styles.shadowProp]}>
+            <View
+                style={styles.leftContainer}>
+                <Text
+                    style={styles.title}>
+                    {item.title}
+                </Text>
                 <Text
                     style={styles.plcaes}>
                     <Entypo
                         name="location"
                         size={12}
                     />
-                    {' '}{item.location}{ }
+                    {' '}
+                    {item.location}
                 </Text>
                 <Text
                     style={styles.plcaes}
@@ -38,7 +52,8 @@ const AtrractionPost = (props) => {
                         name="drivers-license-o"
                         size={12}
                     />
-                    {' '}Driver
+                    {' '}
+                    Driver
                 </Text>
                 <Text
                     style={styles.plcaes}
@@ -47,7 +62,8 @@ const AtrractionPost = (props) => {
                         name="wifi"
                         size={12}
                     />
-                    {' '}Wi-Fi
+                    {' '}
+                    Wi-Fi
                 </Text>
                 <Text
                     numberOfLines={3}
@@ -59,7 +75,8 @@ const AtrractionPost = (props) => {
                     />
                     {item.description}
                 </Text>
-                <View style={styles.pi}>
+                <View
+                    style={styles.pi}>
                     <FontAwesome
                         name={liked ? "heart" : "heart-o"}
                         size={20}
@@ -68,7 +85,10 @@ const AtrractionPost = (props) => {
                         onPress={() =>
                             setLiked(!liked)
                         } />
-                    <Text style={styles.price}>$ {item.price}</Text>
+                    <Text
+                        style={styles.price}>
+                        ${item.price}
+                    </Text>
                 </View>
             </View>
             <Image

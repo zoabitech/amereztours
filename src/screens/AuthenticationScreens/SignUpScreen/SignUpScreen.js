@@ -1,13 +1,23 @@
-import { View, Text, StyleSheet, ScrollView, Platform, Alert } from 'react-native'
+//REACT AND REACT NATIVE IMPORTS
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    Platform,
+    Alert
+} from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
+//COMPONENETS IMPORTS
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
 import SocialSignInButtons from '../../../components/SocialSignInButtons';
-import { useNavigation } from '@react-navigation/native';
-import { useForm, Controller } from 'react-hook-form';
+
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-const API_URL = Platform.OS === 'android' ? 'http://localhost:5000' : 'http://192.168.1.183:3001';
+const API_URL = Platform.OS === 'android' ? 'http://192.168.1.183:3001' : 'http://localhost:5000';
 
 const SignUpScreen = () => {
     const { control, handleSubmit, watch } = useForm();
@@ -15,6 +25,7 @@ const SignUpScreen = () => {
     const navigation = useNavigation();
 
     const onSignUpPressed = async (data) => {
+        //function that get the new user info and store it into the database
         const { firstName, lastName, phoneNumber, CIN_Passeport, address, userName, Email, Password } = data;
         const payload = {
             firstName,
@@ -26,7 +37,7 @@ const SignUpScreen = () => {
             Email,
             Password
         };
-        fetch(`http://192.168.1.22:3001/${'signup'}`, {
+        fetch(`${API_URL}/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,18 +61,24 @@ const SignUpScreen = () => {
     }
 
     const onAlreadyHaveAccountPressed = () => {
+        //function taht transfer the user into the SignIn screen
         navigation.navigate("SignIn");
     }
     const onTermsOfUsePreesed = () => {
+        //function taht transfer the user into the TermsOfUse screen
         console.warn('onTermsOfUsePreesed');
     }
     const onPrivacyPolicyPreesed = () => {
+        //function taht transfer the user into the PrivacyPolicy screen
         console.warn('onPrivacyPolicyPreesed');
     }
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.root}>
-                <Text style={styles.title}>Create an account</Text>
+            <View
+                style={styles.root}>
+                <Text style={styles.title}>
+                    Create an account
+                </Text>
 
                 <CustomInput
                     name="firstName"
@@ -139,8 +156,22 @@ const SignUpScreen = () => {
 
                 />
 
-                <Text style={styles.agrees}>By creating and account,you agree to amereztours
-                    {'\n'} <Text style={styles.hyperlinkStyle} onPress={onTermsOfUsePreesed}>Terms of use</Text> and <Text style={styles.hyperlinkStyle} onPress={onPrivacyPolicyPreesed}>Privacy policy</Text></Text>
+                <Text
+                    style={styles.agrees}>
+                    By creating and account,you agree to amereztours
+                    {'\n'}
+                    <Text
+                        style={styles.hyperlinkStyle}
+                        onPress={onTermsOfUsePreesed}>
+                        Terms of use
+                    </Text>
+                    and
+                    <Text
+                        style={styles.hyperlinkStyle}
+                        onPress={onPrivacyPolicyPreesed}>
+                        Privacy policy
+                    </Text>
+                </Text>
 
                 <SocialSignInButtons />
 
@@ -174,26 +205,4 @@ const styles = StyleSheet.create({
         color: 'blue',
     },
 })
-export default SignUpScreen
-
-
-//await axios.post('http://172.16.1.112:3001/register', {
-        //     firstName,
-        //     lastName,
-        //     phoneNumber,
-        //     CIN_Passeport,
-        //     address,
-        //     userName,
-        //     Email,
-        //     Password
-
-        // }).then((response) => {
-        //     // handle success
-        //     Alert.alert(
-        //         "you well recevie an code confirmation enter"
-        //     );
-        //     navigation.navigate("SignUp");
-        // }).catch((error) => {
-        //     // handle error
-        //     alert(error.message);
-        // });
+export default SignUpScreen;

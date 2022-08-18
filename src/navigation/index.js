@@ -9,7 +9,6 @@ import NewPasswordScreen from '../screens/AuthenticationScreens/NewPasswordScree
 import BottomTabNavigation from './HomeTabNavigation';
 import AttractionPostInfoScreen from '../screens/AttractionPostInfoScreen/AttractionPostInfoScreen';
 import CarPostInfoScreen from '../screens/CarPostInfoScreen/CarPostInfoScreen';
-import PymentScreen from '../screens/PymentScreen/PymentScreen';
 const Stack = createNativeStackNavigator();
 
 const Navigation = (props) => {
@@ -19,13 +18,12 @@ const Navigation = (props) => {
             <Stack.Navigator screenOptions={{ headerShown: false }} >
                 <Stack.Screen name={"home"} component={BottomTabNavigation} />
                 <Stack.Screen name="SignIn" component={SignInScreen} />
-                <Stack.Screen name="SinUp" component={SignUpScreen} />
+                <Stack.Screen name="SignUp" component={SignUpScreen} />
                 {/* <Stack.Screen name="Confirm" component={ConfirmEmailScreen} /> */}
                 {/* <Stack.Screen name="ForgetPassword" component={ForgotPasswordScreen} /> */}
                 <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
                 <Stack.Screen name="PostInfo" component={AttractionPostInfoScreen} />
                 <Stack.Screen name="CarInfoPost" component={CarPostInfoScreen} />
-                <Stack.Screen name="pyment" component={PymentScreen} />
             </Stack.Navigator>
         </NavigationContainer>
 

@@ -1,21 +1,27 @@
-import { StyleSheet, View, } from 'react-native'
-import React, { useContext } from 'react'
+//REACT AND REACT NATIVE 
+import {
+    StyleSheet,
+    View,
+} from 'react-native'
+import React,
+{ useContext } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+//IMPORT COMPONENET 
 import CustomButton from '../../components/CustomButton';
+//CONTEXT IMPORTS
 import { UserContext } from '../../context/UserContext';
 import { OrderDataContext } from '../../context/OrderDataContext';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ProfileScreen = () => {
 
     const navigation = useNavigation();
-    const { control, handleSubmit } = useForm();
+    const { handleSubmit } = useForm();
     const { user, setUser } = useContext(UserContext);
     const { orderData, setOrderData } = useContext(OrderDataContext);
 
     const onLogedOutPressed = async () => {
-
         //function that clear the user from the asyncStrarge after the user cklick on the logout
         try {
             setUser(null);

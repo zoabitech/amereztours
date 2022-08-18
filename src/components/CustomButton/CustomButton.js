@@ -1,4 +1,8 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import {
+    Text,
+    StyleSheet,
+    Pressable
+} from 'react-native'
 import React from 'react'
 
 const CustomButton = ({ onPress, text, type = "PRIMARY", bgColor, fgColor, loading }) => {
@@ -14,7 +18,8 @@ const CustomButton = ({ onPress, text, type = "PRIMARY", bgColor, fgColor, loadi
                 style={[styles.text,
                 styles[`text_${type}`],
                 fgColor ? { color: fgColor } : {}
-                ]}>{text}</Text>
+                ]}>{text}
+            </Text>
         </Pressable>
     )
 }

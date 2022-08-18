@@ -1,3 +1,4 @@
+//REACT AND REACT NATIVE IMPORTS
 import {
     View,
     Text,
@@ -9,17 +10,19 @@ import {
 } from 'react-native'
 import React, { useContext } from 'react';
 import Logo from '../../../../assets/images/company_logo.png'
+//COMPONENETS IMPORTS
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
 import SocialSignInButtons from '../../../components/SocialSignInButtons';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
+//CONTEXT IMPORTS
 import { UserContext } from "../../../context/UserContext";
 import { OrderDataContext } from "../../../context/OrderDataContext";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const API_URL = Platform.OS === 'android' ? 'http://localhost:5000' : 'http://192.168.1.183:3001';
+const API_URL = Platform.OS === 'android' ? 'http://192.168.1.183:3001' : 'http://localhost:5000';
 const SignInScreen = () => {
 
 
@@ -32,6 +35,7 @@ const SignInScreen = () => {
 
 
     const setData = async (user) => {
+        //function that store the user into asyncstorage
         try {
             await AsyncStorage.setItem('user', JSON.stringify({ user }))
         } catch (error) {
@@ -39,14 +43,13 @@ const SignInScreen = () => {
         }
     }
     const onLoggedIn = (token) => {
-
-        fetch(`http://192.168.1.22:3001/private`, {
+        //function taht Authorization the user 
+        fetch(`${API_URL}/private`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token.token}`,
             },
-
         }).then(async res => {
             try {
                 const jsonRes = await res.json();
@@ -65,14 +68,14 @@ const SignInScreen = () => {
     }
 
     const onSignInPressed = async (data) => {
-
+        //function that get the user info and login to the user profile 
         const { Email, Password } = data;
 
         const payload = {
             Email,
             Password,
         };
-        fetch(`http://192.168.1.22:3001/login`, {
+        fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,41 +98,13 @@ const SignInScreen = () => {
         });
     };
 
-    // const getAllOrders = async (id) => {
-
-    //     //fucntion that get all the order of the spic user
-    //     const payload = {
-    //         id
-    //     };
-    //     fetch(`http://192.168.1.22:3001/fetchOrder`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(payload),
-    //     }).then(async res => {
-    //         try {
-    //             const jsonRes = await res.json();
-    //             if (res.status !== 200) {
-    //                 alert(jsonRes.message);
-    //                 return;
-    //             } else {
-    //                 setOrderData(jsonRes);
-    //             }
-    //         } catch (err) {
-    //             console.log(err.message);
-    //         };
-    //     }).catch(err => {
-    //         console.log(err.message);
-    //     });
-    // };
-
-
     const onForgotPasswordPressed = () => {
+        //function taht transfer the user into the rest password screen
         navigation.navigate('NewPassword')
     }
     const onDontHaveAnccountPressed = () => {
-        navigation.navigate("SinUp")
+        //function taht transfer the user into the rest SignUp screen
+        navigation.navigate("SignUp")
     }
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -142,11 +117,14 @@ const SignInScreen = () => {
                     resizeMode="contain"
                 />
 
-                <Text style={styles.title}>Login in your account</Text>
+                <Text
+                    style={styles.title}>
+                    Login to your account
+                </Text>
 
                 <CustomInput
                     name="Email"
-                    placeholder="E-mail"
+                    placeholder="Email"
                     control={control}
                     rules={{ required: 'Email is required', pattern: { value: EMAIL_REGEX, message: 'Email is invalid' } }}
                 />

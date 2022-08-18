@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     root: {
-        // flexDirection: 'row',
         margin: 4,
         backgroundColor: 'white',
         height: '100%',
@@ -27,11 +26,6 @@ const styles = StyleSheet.create({
         margin: 3,
         color: '#000'
     },
-    // rightContainer: {
-    //     flex: 1.5,
-    //     padding: 10,
-
-    // },
     price: {
         fontSize: 18,
         fontWeight: '900',
@@ -77,19 +71,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9f9f9',
         zIndex: 25,
         elevation: 2,
-    },
-    // ratingContainer: {
-    //     flexDirection: 'row',
-    // },
-    // star: {
-    //     margin: 2,
-    //     marginVertical: 7,
-    // },
-    // shadowProp: {
-    //     borderWidth: 0.1,
-    //     borderColor: "#000",
-    //     elevation: 4,
-    // }
+    }
 })
 
 export default styles;

@@ -1,30 +1,46 @@
-import { Text, View, ScrollView, TouchableOpacity, Modal, ActivityIndicator } from 'react-native'
-import React, { useState, useContext } from 'react'
+//react and react native imports
+import {
+    Text,
+    View,
+    ScrollView,
+    TouchableOpacity,
+    Modal,
+    ActivityIndicator
+} from 'react-native'
+import React,
+{
+    useState,
+    useContext
+} from 'react'
+import { WebView } from 'react-native-webview';
 import styles from './styles';
+//ICONS IMPORTS
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel from '../Carousel';
-import CustomButton from '../CustomButton'
+//CONTEXT IMPORTS
 import { UserContext } from '../../context/UserContext';
-import { useNavigation } from '@react-navigation/native';
-import { WebView } from 'react-native-webview';
 import { StartDateContext } from "../../context/StartDateContext";
 import { EndDateContext } from "../../context/EndDateContext";
+
+const API_URL = Platform.OS === 'android' ? 'http://192.168.1.183:3001' : 'http://localhost:5000';
+
 const CarInfoPost = (props) => {
-    // const [liked, setLiked] = useState(false);
+
     const { item } = props;
     const images = item.images.map((a, index) => a.link)
     const { user } = useContext(UserContext);
     const { startDate } = useContext(StartDateContext);
     const { endDate } = useContext(EndDateContext);
-    const navigation = useNavigation();
 
     const [showGateway, setShowGateway] = useState(false);
     const [prog, setProg] = useState(false);
     const [progClr, setProgClr] = useState('#000');
+
+
     function onMessage(e) {
         let data = e.nativeEvent.data;
         setShowGateway(false);
@@ -73,7 +89,7 @@ const CarInfoPost = (props) => {
             title: item.title,
             img: images[0]
         };
-        fetch(`http://192.168.1.22:3001/addOrder`, {
+        fetch(`${API_URL}/addOrder`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,14 +100,12 @@ const CarInfoPost = (props) => {
                 const jsonRes = await res.json();
                 if (res.status !== 200) {
                     alert(jsonRes.message);
-                } else {
-                    console.log("jsonRes", JSON.stringify(jsonRes, null, 4))
                 }
             } catch (err) {
-                console.log("a", err.message);
+                console.log(err.message);
             }
         }).catch(err => {
-            console.log("b", err.message);
+            console.log(err.message);
         });
     }
 

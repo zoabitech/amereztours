@@ -2,7 +2,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { Controller } from 'react-hook-form';
 import React from 'react'
 
-const CustomImput = ({ control, name, rules = {}, placeholder, secureTextEntry, style }) => {
+const CustomInput = ({ control, name, rules = {}, placeholder, secureTextEntry, style }) => {
     return (
 
         <Controller
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
 
     }
 })
-export default CustomImput
+export default CustomInput

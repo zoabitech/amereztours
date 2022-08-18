@@ -1,3 +1,4 @@
+//REACT AND REACT NATIVE IMPORTS
 import React,
 {
   useMemo,
@@ -8,17 +9,17 @@ import React,
 import moment from 'moment'
 import {
   SafeAreaView,
-  StyleSheet,
 } from 'react-native';
 import Navigation from './src/navigation';
+//CONTEXT IMPORTS
 import { UserContext } from "./src/context/UserContext";
 import { StartDateContext } from './src/context/StartDateContext';
 import { EndDateContext } from './src/context/EndDateContext';
-import { DataContext } from './src/context/DataContext';
+import { AttractionDataContext } from './src/context/AttractionDataContext';
 import { CarDataContext } from './src/context/CarDataContext';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { OrderDataContext } from './src/context/OrderDataContext';
 import { LikedDataContext } from './src/context/LikedDataContext'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const App = () => {
 
@@ -32,8 +33,8 @@ const App = () => {
   const [endDate, setEndDate] = useState(moment(endDate));
   const endDateValue = useMemo(() => ({ endDate, setEndDate }), [endDate, setEndDate]);
   //array of object for the attraction data
-  const [data, setData] = useState(undefined)
-  const dataValue = useMemo(() => ({ data, setData }), [data, setData])
+  const [attractionData, setAttractionData] = useState(undefined)
+  const dataValue = useMemo(() => ({ attractionData, setAttractionData }), [attractionData, setAttractionData])
   //array of object for the car data  
   const [carData, setCarData] = useState(undefined);
   const carDataValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData])
@@ -45,6 +46,7 @@ const App = () => {
   const likedDataValue = useMemo(() => ({ likedData, setLikedData }), [likedData, setLikedData])
 
   useEffect(() => {
+    //useeffect that get the from the asyncstroge every time the app rerender 
     getData()
   }, [])
 
@@ -54,8 +56,6 @@ const App = () => {
       const userData = JSON.parse(userValue)
       const ordersValue = await AsyncStorage.getItem('orders')
       const ordersData = JSON.parse(ordersValue)
-      // console.log("user", JSON.stringify(userData, null, 4))
-      // console.log("orders", JSON.stringify(ordersData, null, 4))
       if (userData != null) {
         setUser(userData)
       }
@@ -66,11 +66,14 @@ const App = () => {
 
 
   return (
-    <SafeAreaView style={styles.root}>
+    <SafeAreaView style={{
+      flex: 1,
+      backgroundColor: '#F9FBFC',
+    }}>
       <LikedDataContext.Provider value={likedDataValue}>
         <OrderDataContext.Provider value={orderDataValue}>
           <CarDataContext.Provider value={carDataValue}>
-            <DataContext.Provider value={dataValue}>
+            <AttractionDataContext.Provider value={dataValue}>
               <StartDateContext.Provider value={startDateValue}>
                 <EndDateContext.Provider value={endDateValue}>
                   <UserContext.Provider value={value}>
@@ -78,7 +81,7 @@ const App = () => {
                   </UserContext.Provider>
                 </EndDateContext.Provider>
               </StartDateContext.Provider>
-            </DataContext.Provider>
+            </AttractionDataContext.Provider>
           </CarDataContext.Provider>
         </OrderDataContext.Provider>
       </LikedDataContext.Provider>
@@ -86,12 +89,4 @@ const App = () => {
 
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: '#F9FBFC',
-  }
-});
-
 export default App;

@@ -1,13 +1,30 @@
-import { Text, View, ScrollView, TouchableOpacity, Modal, ActivityIndicator } from 'react-native'
-import React, { useState, useContext } from 'react'
-import styles from './styles';
-import Feather from 'react-native-vector-icons/Feather';
-import Carousel from '../Carousel';
-import { UserContext } from '../../context/UserContext';
-import { useNavigation } from '@react-navigation/native';
+//REACT AND REACT NATIVE IMPORTS
+import {
+    Text,
+    View,
+    ScrollView,
+    TouchableOpacity,
+    Modal,
+    ActivityIndicator
+} from 'react-native'
+import React,
+{
+    useState,
+    useContext
+} from 'react'
 import { WebView } from 'react-native-webview';
+//ICONS IMPORTS
+import Feather from 'react-native-vector-icons/Feather';
+//STYLES IMPORTS
+import styles from './styles';
+//COMPONENETS IMPORTS
+import Carousel from '../Carousel';
+//CONTEXT IMPORTS
+import { UserContext } from '../../context/UserContext';
 import { StartDateContext } from "../../context/StartDateContext";
 import { EndDateContext } from "../../context/EndDateContext";
+
+const API_URL = Platform.OS === 'android' ? 'http://192.168.1.183:3001' : 'http://localhost:5000';
 
 const AttractionIfoPost = (props) => {
 
@@ -16,7 +33,6 @@ const AttractionIfoPost = (props) => {
     const { user } = useContext(UserContext);
     const { startDate } = useContext(StartDateContext);
     const { endDate } = useContext(EndDateContext);
-    const navigation = useNavigation();
 
     const [showGateway, setShowGateway] = useState(false);
     const [prog, setProg] = useState(false);
@@ -56,7 +72,7 @@ const AttractionIfoPost = (props) => {
     }
 
     const addOrderAfterPaymentSuccessfully = () => {
-
+        //function that add order after successfully
         const payload = {
             attractionId: item.id,
             id: user.user.id,
@@ -69,7 +85,7 @@ const AttractionIfoPost = (props) => {
             title: item.title,
             img: images[0]
         };
-        fetch(`http://192.168.1.22:3001/addOrder`, {
+        fetch(`${API_URL}/addOrder`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,32 +96,44 @@ const AttractionIfoPost = (props) => {
                 const jsonRes = await res.json();
                 if (res.status !== 200) {
                     alert(jsonRes.message);
-                } else {
-                    console.log("jsonRes", JSON.stringify(jsonRes, null, 4))
                 }
             } catch (err) {
-                console.log("a", err.message);
+                console.log(err.message);
             }
         }).catch(err => {
-            console.log("b", err.message);
+            console.log(err.message);
         });
     }
 
 
     return (
-        <ScrollView style={[styles.root, styles.shadowProp]}>
+        <ScrollView
+            style={[styles.root, styles.shadowProp]}>
             <Carousel
                 data={images}
             />
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.desc}>{item.description}</Text>
-            <Text style={styles.price}>$ {item.price}</Text>
-            <View style={styles.container}>
-                <View style={styles.btnCon}>
+            <Text
+                style={styles.title}>{item.title}
+            </Text>
+            <Text
+                style={styles.desc}>
+                {item.description}
+            </Text>
+            <Text
+                style={styles.price}>
+                $ {item.price}
+            </Text>
+            <View
+                style={styles.container}>
+                <View
+                    style={styles.btnCon}>
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={() => user === null ? alert("YOU NEED TO BE SGIN IN TO COMPLETE THE BOOKING") : setShowGateway(true)}>
-                        <Text style={styles.btnTxt}>Pay Using PayPal</Text>
+                        <Text
+                            style={styles.btnTxt}>
+                            Pay Using PayPal
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -117,12 +145,16 @@ const AttractionIfoPost = (props) => {
                     animationType={'fade'}
                     transparent>
 
-                    <View style={styles.webViewCon}>
-                        <View style={styles.wbHead}>
+                    <View
+                        style={styles.webViewCon}>
+                        <View
+                            style={styles.wbHead}>
                             <TouchableOpacity
                                 style={{ padding: 13 }}
                                 onPress={() => setShowGateway(false)}>
-                                <Feather name={'x'} size={24} />
+                                <Feather
+                                    name={'x'}
+                                    size={24} />
                             </TouchableOpacity>
                             <Text
                                 style={{
@@ -134,8 +166,11 @@ const AttractionIfoPost = (props) => {
                                 }}>
                                 PayPal GateWay
                             </Text>
-                            <View style={{ padding: 13, opacity: prog ? 1 : 0 }}>
-                                <ActivityIndicator size={24} color={progClr} />
+                            <View
+                                style={{ padding: 13, opacity: prog ? 1 : 0 }}>
+                                <ActivityIndicator
+                                    size={24}
+                                    color={progClr} />
                             </View>
                         </View>
                         <WebView

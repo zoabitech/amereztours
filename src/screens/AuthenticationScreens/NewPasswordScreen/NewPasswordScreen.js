@@ -1,23 +1,36 @@
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
-import React, { useState } from 'react'
+//REACT AND REACT NATIVE IMPORTS
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    Alert
+} from 'react-native'
+import React from 'react'
+import { useForm } from 'react-hook-form';
+import { useNavigation } from '@react-navigation/native';
+//COMPONENETS IMPORTS
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton';
-import { useNavigation } from '@react-navigation/native';
-import { useForm, Controller } from 'react-hook-form';
 
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const API_URL = Platform.OS === 'android' ? 'http://192.168.1.183:3001' : 'http://localhost:5000';
+
 const NewPasswordScreen = () => {
     const { control, handleSubmit, watch } = useForm();
     const Navigation = useNavigation();
     const pwd = watch('Password');
+
+
     const onSubmitPressed = async (data) => {
+        //function that get the user info and new password and rest the password
         const { Email, Password } = data;
         const payload = {
             Email,
             Password
         };
-        fetch(`http://192.168.1.183:3001/${'updatedPassword'}`, {
+        fetch(`${API_URL}/updatedPassword`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,12 +53,16 @@ const NewPasswordScreen = () => {
         });
     }
     const onBackToSignInPressed = () => {
+        //function that transfer the user into the SignIn screen
         Navigation.navigate("SignIn");
     }
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.root}>
-                <Text style={styles.title}>Reset your password</Text>
+                <Text
+                    style={styles.title}>
+                    Reset your password
+                </Text>
 
                 {/* <CustomInput
                     name="code"

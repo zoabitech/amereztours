@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OrderScreen from '../screens/OrdersScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -11,7 +11,6 @@ import TopTabNavigator from './TopTabNavigator';
 import { UserContext } from '../context/UserContext'
 import { OrderDataContext } from '../context/OrderDataContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { orderData } from '../Data/orderdata';
 
 
 const Tab = createBottomTabNavigator();
@@ -19,7 +18,6 @@ const Tab = createBottomTabNavigator();
 const HomeTabNavigation = (props) => {
 
     const { user } = useContext(UserContext);
-
     const { orderData, setOrderData } = useContext(OrderDataContext);
 
     const setData = async (orders) => {
@@ -30,8 +28,7 @@ const HomeTabNavigation = (props) => {
         }
     }
     const getAllOrders = async () => {
-        //fucntion that get all the order of the spic user
-
+        //fucntion that get all the order of the spicefic user
         const payload = {
             id: user.id
         };
