@@ -1,8 +1,8 @@
 import {View, FlatList} from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContex, useEffect, useContext} from 'react';
 import {LikedDataContext} from '../../context/LikedDataContext';
 import LikedPost from '../../components/LikedPost/LikedPost';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const LikedScreen = () => {
   const {likedData, setLikedData} = useContext(LikedDataContext);
 

@@ -24,9 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const API_URL =
-  Platform.OS === 'android'
-    ? 'http://192.168.1.183:3001'
-    : 'http://localhost:5000';
+  Platform.OS === 'android' ? 'http://10.0.0.1:3001' : 'http://localhost:5000';
 
 const SignInScreen = () => {
   const {height} = useWindowDimensions();

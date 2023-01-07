@@ -24,9 +24,7 @@ import {CarDataContext} from '../../context/CarDataContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const API_URL =
-  Platform.OS === 'android'
-    ? 'http://192.168.1.183:3001'
-    : 'http://localhost:5000';
+  Platform.OS === 'android' ? 'http://10.0.0.1:3001' : 'http://localhost:5000';
 
 const CarSearchScreen = () => {
   const {control, handleSubmit} = useForm();

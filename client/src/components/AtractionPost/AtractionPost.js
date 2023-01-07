@@ -26,6 +26,14 @@ const AtrractionPost = props => {
     }
   }, [liked]);
 
+  // const setData = async likedData => {
+  //   try {
+  //     await AsyncStorage.setItem('liked', JSON.stringify({likedData}));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const goToAttractionPostPageInfo = () => {
     //function that navigate to the spicifc attraction
     navigation.navigate('PostInfo', {PostId: item.id});
